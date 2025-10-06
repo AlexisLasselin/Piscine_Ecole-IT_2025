@@ -1,0 +1,6 @@
+a = 5
+b = 3
+while a < 20:
+    a = a + b
+    $print(a)   # '$' is invalid
+@invalid = 42  # '@' is invalid
