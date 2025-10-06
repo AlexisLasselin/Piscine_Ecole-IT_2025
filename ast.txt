@@ -1,0 +1,32 @@
+ast = {
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "identifier": "a",
+            "value": {"type": "Literal", "value": 5}
+        },
+        {
+            "type": "VariableDeclaration",
+            "identifier": "b",
+            "value": {"type": "Literal", "value": 3}
+        },
+        {
+            "type": "Assignment",
+            "identifier": "a",
+            "value": {
+                "type": "BinaryExpression",
+                "operator": "+",
+                "left": {"type": "Identifier", "name": "a"},
+                "right": {"type": "Identifier", "name": "b"}
+            }
+        },
+        {
+            "type": "FunctionCall",
+            "callee": {"type": "Identifier", "name": "print"},
+            "arguments": [
+                {"type": "Identifier", "name": "a"}
+            ]
+        }
+    ]
+}
