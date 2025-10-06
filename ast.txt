@@ -16,17 +16,17 @@ ast = {
             "identifier": "a",
             "value": {
                 "type": "BinaryExpression",
-                "operator": "+",
-                "left": {"type": "Identifier", "name": "a"},
-                "right": {"type": "Identifier", "name": "b"}
-            }
-        },
-        {
-            "type": "FunctionCall",
-            "callee": {"type": "Identifier", "name": "print"},
-            "arguments": [
-                {"type": "Identifier", "name": "a"}
-            ]
-        }
-    ]
-}
+                "operator": "/",
+                "left": {
+                    "type": "BinaryExpression",
+                    "operator": "*",
+                    "left": {
+                        "type": "BinaryExpression",
+                        "operator": "+",
+                        "left": {"type": "Identifier", "name": "a"},
+                        "right": {"type": "Literal", "value": 2}
+                    },
+                    "right": {
+                        "type": "BinaryExpression",
+                        "operator": "-",
+                        "left": {"type": "Identifier", "name": "b"},
