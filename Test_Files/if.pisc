@@ -1,0 +1,17 @@
+a = 5
+b = 3
+
+if a < b:
+    print("a est inférieur à b")
+elif a > b:
+    print("a est supérieur à b")
+elif a <= b:
+    print("a est inférieur ou égal à b")
+elif a >= b:
+    print("a est supérieur ou égal à b")
+elif a == b:
+    print("a est égal à b")
+elif a != b:
+    print("a est différent de b")
+else:
+    print("Plus de commparaison ")
