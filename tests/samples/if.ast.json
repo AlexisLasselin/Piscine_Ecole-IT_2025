@@ -1,0 +1,207 @@
+{
+  "Program": {
+    "statements": [
+      {
+        "If": {
+          "condition": {
+            "BinOp": {
+              "left": {
+                "Var": {
+                  "name": "a"
+                }
+              },
+              "op": "<",
+              "right": {
+                "Var": {
+                  "name": "b"
+                }
+              }
+            }
+          },
+          "then_branch": [
+            {
+              "Print": {
+                "expr": {
+                  "String": {
+                    "value": "a est inférieur à b"
+                  }
+                }
+              }
+            }
+          ],
+          "else_branch": [
+            {
+              "If": {
+                "condition": {
+                  "BinOp": {
+                    "left": {
+                      "Var": {
+                        "name": "a"
+                      }
+                    },
+                    "op": ">",
+                    "right": {
+                      "Var": {
+                        "name": "b"
+                      }
+                    }
+                  }
+                },
+                "then_branch": [
+                  {
+                    "Print": {
+                      "expr": {
+                        "String": {
+                          "value": "a est supérieur à b"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "else_branch": [
+                  {
+                    "If": {
+                      "condition": {
+                        "BinOp": {
+                          "left": {
+                            "Var": {
+                              "name": "a"
+                            }
+                          },
+                          "op": "<=",
+                          "right": {
+                            "Var": {
+                              "name": "b"
+                            }
+                          }
+                        }
+                      },
+                      "then_branch": [
+                        {
+                          "Print": {
+                            "expr": {
+                              "String": {
+                                "value": "a est inférieur ou égal à b"
+                              }
+                            }
+                          }
+                        }
+                      ],
+                      "else_branch": [
+                        {
+                          "If": {
+                            "condition": {
+                              "BinOp": {
+                                "left": {
+                                  "Var": {
+                                    "name": "a"
+                                  }
+                                },
+                                "op": ">=",
+                                "right": {
+                                  "Var": {
+                                    "name": "b"
+                                  }
+                                }
+                              }
+                            },
+                            "then_branch": [
+                              {
+                                "Print": {
+                                  "expr": {
+                                    "String": {
+                                      "value": "a est supérieur ou égal à b"
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_branch": [
+                              {
+                                "If": {
+                                  "condition": {
+                                    "BinOp": {
+                                      "left": {
+                                        "Var": {
+                                          "name": "a"
+                                        }
+                                      },
+                                      "op": "==",
+                                      "right": {
+                                        "Var": {
+                                          "name": "b"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "then_branch": [
+                                    {
+                                      "Print": {
+                                        "expr": {
+                                          "String": {
+                                            "value": "a est égal à b"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "else_branch": [
+                                    {
+                                      "If": {
+                                        "condition": {
+                                          "BinOp": {
+                                            "left": {
+                                              "Var": {
+                                                "name": "a"
+                                              }
+                                            },
+                                            "op": "!=",
+                                            "right": {
+                                              "Var": {
+                                                "name": "b"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "then_branch": [
+                                          {
+                                            "Print": {
+                                              "expr": {
+                                                "String": {
+                                                  "value": "a est différent de b"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "else_branch": [
+                                          {
+                                            "Print": {
+                                              "expr": {
+                                                "String": {
+                                                  "value": "Plus de comparaison"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

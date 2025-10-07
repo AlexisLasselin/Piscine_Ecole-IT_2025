@@ -32,11 +32,11 @@
     "i"
   ],
   [
-    "IDENTIFIER",
+    "IN",
     "in"
   ],
   [
-    "IDENTIFIER",
+    "RANGE",
     "range"
   ],
   [
@@ -52,8 +52,8 @@
     ")"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "IDENTIFIER",
@@ -90,6 +90,10 @@
   [
     "RPAREN",
     ")"
+  ],
+  [
+    "BLOCK_END",
+    "}"
   ],
   [
     "PRINT",

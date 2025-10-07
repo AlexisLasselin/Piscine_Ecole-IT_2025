@@ -1,10 +1,6 @@
 [
   [
     "IDENTIFIER",
-    "var"
-  ],
-  [
-    "IDENTIFIER",
     "a"
   ],
   [
@@ -17,10 +13,6 @@
   ],
   [
     "IDENTIFIER",
-    "var"
-  ],
-  [
-    "IDENTIFIER",
     "b"
   ],
   [
@@ -30,10 +22,6 @@
   [
     "NUMBER",
     "3"
-  ],
-  [
-    "IDENTIFIER",
-    "var"
   ],
   [
     "IDENTIFIER",

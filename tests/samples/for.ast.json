@@ -1,0 +1,72 @@
+{
+  "Program": {
+    "statements": [
+      {
+        "Assign": {
+          "name": "a",
+          "expr": {
+            "Number": {
+              "value": 5
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "b",
+          "expr": {
+            "Number": {
+              "value": 3
+            }
+          }
+        }
+      },
+      {
+        "For": {
+          "var": "i",
+          "count": 5,
+          "body": [
+            {
+              "Assign": {
+                "name": "a",
+                "expr": {
+                  "BinOp": {
+                    "left": {
+                      "Var": {
+                        "name": "a"
+                      }
+                    },
+                    "op": "+",
+                    "right": {
+                      "Var": {
+                        "name": "b"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "Print": {
+                "expr": {
+                  "Var": {
+                    "name": "a"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "b"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

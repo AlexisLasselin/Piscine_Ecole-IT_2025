@@ -1,7 +1,8 @@
 a = 5
 b = 3
-while a < 20:
+while a < 20 {
     a = a + b
     print(a)
+}
 
 print(b)

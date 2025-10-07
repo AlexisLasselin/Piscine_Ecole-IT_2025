@@ -1,0 +1,2255 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    SEMICOLON
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statement_list_opt
+Rule 2     statement_list_opt -> statement_list
+Rule 3     statement_list_opt -> empty
+Rule 4     statement_list -> statement_list statement
+Rule 5     statement_list -> statement
+Rule 6     statement -> assignment
+Rule 7     statement -> print_stmt
+Rule 8     statement -> if_stmt
+Rule 9     statement -> while_stmt
+Rule 10    statement -> for_stmt
+Rule 11    statement -> COMMENT
+Rule 12    assignment -> IDENTIFIER EQUALS expression
+Rule 13    print_stmt -> PRINT LPAREN expression RPAREN
+Rule 14    if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+Rule 15    elif_list -> empty
+Rule 16    elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END
+Rule 17    elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END
+Rule 18    else_part -> empty
+Rule 19    else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END
+Rule 20    while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END
+Rule 21    for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+Rule 22    expression -> expression PLUS expression
+Rule 23    expression -> expression MINUS expression
+Rule 24    expression -> expression TIMES expression
+Rule 25    expression -> expression DIVIDE expression
+Rule 26    expression -> expression EQ expression
+Rule 27    expression -> expression NEQ expression
+Rule 28    expression -> expression LT expression
+Rule 29    expression -> expression LEQ expression
+Rule 30    expression -> expression GT expression
+Rule 31    expression -> expression GEQ expression
+Rule 32    expression -> MINUS expression
+Rule 33    expression -> LPAREN expression RPAREN
+Rule 34    expression -> NUMBER
+Rule 35    expression -> BOOLEAN
+Rule 36    expression -> NULL
+Rule 37    expression -> STRING
+Rule 38    expression -> IDENTIFIER
+Rule 39    empty -> <empty>
+
+Terminals, with rules where they appear
+
+BLOCK_END            : 14 16 17 19 20 21
+BLOCK_START          : 14 16 17 19 20 21
+BOOLEAN              : 35
+COMMENT              : 11
+DIVIDE               : 25
+ELSE                 : 19
+ELSEIF               : 16 17
+EQ                   : 26
+EQUALS               : 12
+FOR                  : 21
+GEQ                  : 31
+GT                   : 30
+IDENTIFIER           : 12 21 38
+IF                   : 14
+IN                   : 21
+LEQ                  : 29
+LPAREN               : 13 21 33
+LT                   : 28
+MINUS                : 23 32
+NEQ                  : 27
+NULL                 : 36
+NUMBER               : 21 34
+PLUS                 : 22
+PRINT                : 13
+RANGE                : 21
+RPAREN               : 13 21 33
+SEMICOLON            : 
+STRING               : 37
+TIMES                : 24
+WHILE                : 20
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignment           : 6
+elif_list            : 14 17
+else_part            : 14
+empty                : 3 15 18
+expression           : 12 13 14 16 17 20 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 30 31 31 32 33
+for_stmt             : 10
+if_stmt              : 8
+print_stmt           : 7
+program              : 0
+statement            : 4 5
+statement_list       : 2 4
+statement_list_opt   : 1 14 16 17 19 20 21
+while_stmt           : 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statement_list_opt
+    (2) statement_list_opt -> . statement_list
+    (3) statement_list_opt -> . empty
+    (4) statement_list -> . statement_list statement
+    (5) statement_list -> . statement
+    (39) empty -> .
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    $end            reduce using rule 39 (empty -> .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    program                        shift and go to state 1
+    statement_list_opt             shift and go to state 2
+    statement_list                 shift and go to state 3
+    empty                          shift and go to state 4
+    statement                      shift and go to state 5
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statement_list_opt .
+
+    $end            reduce using rule 1 (program -> statement_list_opt .)
+
+
+state 3
+
+    (2) statement_list_opt -> statement_list .
+    (4) statement_list -> statement_list . statement
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    $end            reduce using rule 2 (statement_list_opt -> statement_list .)
+    BLOCK_END       reduce using rule 2 (statement_list_opt -> statement_list .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    statement                      shift and go to state 17
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 4
+
+    (3) statement_list_opt -> empty .
+
+    $end            reduce using rule 3 (statement_list_opt -> empty .)
+    BLOCK_END       reduce using rule 3 (statement_list_opt -> empty .)
+
+
+state 5
+
+    (5) statement_list -> statement .
+
+    COMMENT         reduce using rule 5 (statement_list -> statement .)
+    IDENTIFIER      reduce using rule 5 (statement_list -> statement .)
+    PRINT           reduce using rule 5 (statement_list -> statement .)
+    IF              reduce using rule 5 (statement_list -> statement .)
+    WHILE           reduce using rule 5 (statement_list -> statement .)
+    FOR             reduce using rule 5 (statement_list -> statement .)
+    $end            reduce using rule 5 (statement_list -> statement .)
+    BLOCK_END       reduce using rule 5 (statement_list -> statement .)
+
+
+state 6
+
+    (6) statement -> assignment .
+
+    COMMENT         reduce using rule 6 (statement -> assignment .)
+    IDENTIFIER      reduce using rule 6 (statement -> assignment .)
+    PRINT           reduce using rule 6 (statement -> assignment .)
+    IF              reduce using rule 6 (statement -> assignment .)
+    WHILE           reduce using rule 6 (statement -> assignment .)
+    FOR             reduce using rule 6 (statement -> assignment .)
+    $end            reduce using rule 6 (statement -> assignment .)
+    BLOCK_END       reduce using rule 6 (statement -> assignment .)
+
+
+state 7
+
+    (7) statement -> print_stmt .
+
+    COMMENT         reduce using rule 7 (statement -> print_stmt .)
+    IDENTIFIER      reduce using rule 7 (statement -> print_stmt .)
+    PRINT           reduce using rule 7 (statement -> print_stmt .)
+    IF              reduce using rule 7 (statement -> print_stmt .)
+    WHILE           reduce using rule 7 (statement -> print_stmt .)
+    FOR             reduce using rule 7 (statement -> print_stmt .)
+    $end            reduce using rule 7 (statement -> print_stmt .)
+    BLOCK_END       reduce using rule 7 (statement -> print_stmt .)
+
+
+state 8
+
+    (8) statement -> if_stmt .
+
+    COMMENT         reduce using rule 8 (statement -> if_stmt .)
+    IDENTIFIER      reduce using rule 8 (statement -> if_stmt .)
+    PRINT           reduce using rule 8 (statement -> if_stmt .)
+    IF              reduce using rule 8 (statement -> if_stmt .)
+    WHILE           reduce using rule 8 (statement -> if_stmt .)
+    FOR             reduce using rule 8 (statement -> if_stmt .)
+    $end            reduce using rule 8 (statement -> if_stmt .)
+    BLOCK_END       reduce using rule 8 (statement -> if_stmt .)
+
+
+state 9
+
+    (9) statement -> while_stmt .
+
+    COMMENT         reduce using rule 9 (statement -> while_stmt .)
+    IDENTIFIER      reduce using rule 9 (statement -> while_stmt .)
+    PRINT           reduce using rule 9 (statement -> while_stmt .)
+    IF              reduce using rule 9 (statement -> while_stmt .)
+    WHILE           reduce using rule 9 (statement -> while_stmt .)
+    FOR             reduce using rule 9 (statement -> while_stmt .)
+    $end            reduce using rule 9 (statement -> while_stmt .)
+    BLOCK_END       reduce using rule 9 (statement -> while_stmt .)
+
+
+state 10
+
+    (10) statement -> for_stmt .
+
+    COMMENT         reduce using rule 10 (statement -> for_stmt .)
+    IDENTIFIER      reduce using rule 10 (statement -> for_stmt .)
+    PRINT           reduce using rule 10 (statement -> for_stmt .)
+    IF              reduce using rule 10 (statement -> for_stmt .)
+    WHILE           reduce using rule 10 (statement -> for_stmt .)
+    FOR             reduce using rule 10 (statement -> for_stmt .)
+    $end            reduce using rule 10 (statement -> for_stmt .)
+    BLOCK_END       reduce using rule 10 (statement -> for_stmt .)
+
+
+state 11
+
+    (11) statement -> COMMENT .
+
+    COMMENT         reduce using rule 11 (statement -> COMMENT .)
+    IDENTIFIER      reduce using rule 11 (statement -> COMMENT .)
+    PRINT           reduce using rule 11 (statement -> COMMENT .)
+    IF              reduce using rule 11 (statement -> COMMENT .)
+    WHILE           reduce using rule 11 (statement -> COMMENT .)
+    FOR             reduce using rule 11 (statement -> COMMENT .)
+    $end            reduce using rule 11 (statement -> COMMENT .)
+    BLOCK_END       reduce using rule 11 (statement -> COMMENT .)
+
+
+state 12
+
+    (12) assignment -> IDENTIFIER . EQUALS expression
+
+    EQUALS          shift and go to state 18
+
+
+state 13
+
+    (13) print_stmt -> PRINT . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 19
+
+
+state 14
+
+    (14) if_stmt -> IF . expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 20
+
+state 15
+
+    (20) while_stmt -> WHILE . expression BLOCK_START statement_list_opt BLOCK_END
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 28
+
+state 16
+
+    (21) for_stmt -> FOR . IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    IDENTIFIER      shift and go to state 29
+
+
+state 17
+
+    (4) statement_list -> statement_list statement .
+
+    COMMENT         reduce using rule 4 (statement_list -> statement_list statement .)
+    IDENTIFIER      reduce using rule 4 (statement_list -> statement_list statement .)
+    PRINT           reduce using rule 4 (statement_list -> statement_list statement .)
+    IF              reduce using rule 4 (statement_list -> statement_list statement .)
+    WHILE           reduce using rule 4 (statement_list -> statement_list statement .)
+    FOR             reduce using rule 4 (statement_list -> statement_list statement .)
+    $end            reduce using rule 4 (statement_list -> statement_list statement .)
+    BLOCK_END       reduce using rule 4 (statement_list -> statement_list statement .)
+
+
+state 18
+
+    (12) assignment -> IDENTIFIER EQUALS . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 30
+
+state 19
+
+    (13) print_stmt -> PRINT LPAREN . expression RPAREN
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 31
+
+state 20
+
+    (14) if_stmt -> IF expression . BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     shift and go to state 32
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+    EQ              shift and go to state 37
+    NEQ             shift and go to state 38
+    LT              shift and go to state 39
+    LEQ             shift and go to state 40
+    GT              shift and go to state 41
+    GEQ             shift and go to state 42
+
+
+state 21
+
+    (32) expression -> MINUS . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 43
+
+state 22
+
+    (33) expression -> LPAREN . expression RPAREN
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 44
+
+state 23
+
+    (34) expression -> NUMBER .
+
+    BLOCK_START     reduce using rule 34 (expression -> NUMBER .)
+    PLUS            reduce using rule 34 (expression -> NUMBER .)
+    MINUS           reduce using rule 34 (expression -> NUMBER .)
+    TIMES           reduce using rule 34 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 34 (expression -> NUMBER .)
+    EQ              reduce using rule 34 (expression -> NUMBER .)
+    NEQ             reduce using rule 34 (expression -> NUMBER .)
+    LT              reduce using rule 34 (expression -> NUMBER .)
+    LEQ             reduce using rule 34 (expression -> NUMBER .)
+    GT              reduce using rule 34 (expression -> NUMBER .)
+    GEQ             reduce using rule 34 (expression -> NUMBER .)
+    COMMENT         reduce using rule 34 (expression -> NUMBER .)
+    IDENTIFIER      reduce using rule 34 (expression -> NUMBER .)
+    PRINT           reduce using rule 34 (expression -> NUMBER .)
+    IF              reduce using rule 34 (expression -> NUMBER .)
+    WHILE           reduce using rule 34 (expression -> NUMBER .)
+    FOR             reduce using rule 34 (expression -> NUMBER .)
+    $end            reduce using rule 34 (expression -> NUMBER .)
+    BLOCK_END       reduce using rule 34 (expression -> NUMBER .)
+    RPAREN          reduce using rule 34 (expression -> NUMBER .)
+
+
+state 24
+
+    (35) expression -> BOOLEAN .
+
+    BLOCK_START     reduce using rule 35 (expression -> BOOLEAN .)
+    PLUS            reduce using rule 35 (expression -> BOOLEAN .)
+    MINUS           reduce using rule 35 (expression -> BOOLEAN .)
+    TIMES           reduce using rule 35 (expression -> BOOLEAN .)
+    DIVIDE          reduce using rule 35 (expression -> BOOLEAN .)
+    EQ              reduce using rule 35 (expression -> BOOLEAN .)
+    NEQ             reduce using rule 35 (expression -> BOOLEAN .)
+    LT              reduce using rule 35 (expression -> BOOLEAN .)
+    LEQ             reduce using rule 35 (expression -> BOOLEAN .)
+    GT              reduce using rule 35 (expression -> BOOLEAN .)
+    GEQ             reduce using rule 35 (expression -> BOOLEAN .)
+    COMMENT         reduce using rule 35 (expression -> BOOLEAN .)
+    IDENTIFIER      reduce using rule 35 (expression -> BOOLEAN .)
+    PRINT           reduce using rule 35 (expression -> BOOLEAN .)
+    IF              reduce using rule 35 (expression -> BOOLEAN .)
+    WHILE           reduce using rule 35 (expression -> BOOLEAN .)
+    FOR             reduce using rule 35 (expression -> BOOLEAN .)
+    $end            reduce using rule 35 (expression -> BOOLEAN .)
+    BLOCK_END       reduce using rule 35 (expression -> BOOLEAN .)
+    RPAREN          reduce using rule 35 (expression -> BOOLEAN .)
+
+
+state 25
+
+    (36) expression -> NULL .
+
+    BLOCK_START     reduce using rule 36 (expression -> NULL .)
+    PLUS            reduce using rule 36 (expression -> NULL .)
+    MINUS           reduce using rule 36 (expression -> NULL .)
+    TIMES           reduce using rule 36 (expression -> NULL .)
+    DIVIDE          reduce using rule 36 (expression -> NULL .)
+    EQ              reduce using rule 36 (expression -> NULL .)
+    NEQ             reduce using rule 36 (expression -> NULL .)
+    LT              reduce using rule 36 (expression -> NULL .)
+    LEQ             reduce using rule 36 (expression -> NULL .)
+    GT              reduce using rule 36 (expression -> NULL .)
+    GEQ             reduce using rule 36 (expression -> NULL .)
+    COMMENT         reduce using rule 36 (expression -> NULL .)
+    IDENTIFIER      reduce using rule 36 (expression -> NULL .)
+    PRINT           reduce using rule 36 (expression -> NULL .)
+    IF              reduce using rule 36 (expression -> NULL .)
+    WHILE           reduce using rule 36 (expression -> NULL .)
+    FOR             reduce using rule 36 (expression -> NULL .)
+    $end            reduce using rule 36 (expression -> NULL .)
+    BLOCK_END       reduce using rule 36 (expression -> NULL .)
+    RPAREN          reduce using rule 36 (expression -> NULL .)
+
+
+state 26
+
+    (37) expression -> STRING .
+
+    BLOCK_START     reduce using rule 37 (expression -> STRING .)
+    PLUS            reduce using rule 37 (expression -> STRING .)
+    MINUS           reduce using rule 37 (expression -> STRING .)
+    TIMES           reduce using rule 37 (expression -> STRING .)
+    DIVIDE          reduce using rule 37 (expression -> STRING .)
+    EQ              reduce using rule 37 (expression -> STRING .)
+    NEQ             reduce using rule 37 (expression -> STRING .)
+    LT              reduce using rule 37 (expression -> STRING .)
+    LEQ             reduce using rule 37 (expression -> STRING .)
+    GT              reduce using rule 37 (expression -> STRING .)
+    GEQ             reduce using rule 37 (expression -> STRING .)
+    COMMENT         reduce using rule 37 (expression -> STRING .)
+    IDENTIFIER      reduce using rule 37 (expression -> STRING .)
+    PRINT           reduce using rule 37 (expression -> STRING .)
+    IF              reduce using rule 37 (expression -> STRING .)
+    WHILE           reduce using rule 37 (expression -> STRING .)
+    FOR             reduce using rule 37 (expression -> STRING .)
+    $end            reduce using rule 37 (expression -> STRING .)
+    BLOCK_END       reduce using rule 37 (expression -> STRING .)
+    RPAREN          reduce using rule 37 (expression -> STRING .)
+
+
+state 27
+
+    (38) expression -> IDENTIFIER .
+
+    BLOCK_START     reduce using rule 38 (expression -> IDENTIFIER .)
+    PLUS            reduce using rule 38 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 38 (expression -> IDENTIFIER .)
+    TIMES           reduce using rule 38 (expression -> IDENTIFIER .)
+    DIVIDE          reduce using rule 38 (expression -> IDENTIFIER .)
+    EQ              reduce using rule 38 (expression -> IDENTIFIER .)
+    NEQ             reduce using rule 38 (expression -> IDENTIFIER .)
+    LT              reduce using rule 38 (expression -> IDENTIFIER .)
+    LEQ             reduce using rule 38 (expression -> IDENTIFIER .)
+    GT              reduce using rule 38 (expression -> IDENTIFIER .)
+    GEQ             reduce using rule 38 (expression -> IDENTIFIER .)
+    COMMENT         reduce using rule 38 (expression -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 38 (expression -> IDENTIFIER .)
+    PRINT           reduce using rule 38 (expression -> IDENTIFIER .)
+    IF              reduce using rule 38 (expression -> IDENTIFIER .)
+    WHILE           reduce using rule 38 (expression -> IDENTIFIER .)
+    FOR             reduce using rule 38 (expression -> IDENTIFIER .)
+    $end            reduce using rule 38 (expression -> IDENTIFIER .)
+    BLOCK_END       reduce using rule 38 (expression -> IDENTIFIER .)
+    RPAREN          reduce using rule 38 (expression -> IDENTIFIER .)
+
+
+state 28
+
+    (20) while_stmt -> WHILE expression . BLOCK_START statement_list_opt BLOCK_END
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     shift and go to state 45
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+    EQ              shift and go to state 37
+    NEQ             shift and go to state 38
+    LT              shift and go to state 39
+    LEQ             shift and go to state 40
+    GT              shift and go to state 41
+    GEQ             shift and go to state 42
+
+
+state 29
+
+    (21) for_stmt -> FOR IDENTIFIER . IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    IN              shift and go to state 46
+
+
+state 30
+
+    (12) assignment -> IDENTIFIER EQUALS expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    COMMENT         reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    IDENTIFIER      reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    PRINT           reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    IF              reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    WHILE           reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    FOR             reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    $end            reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    BLOCK_END       reduce using rule 12 (assignment -> IDENTIFIER EQUALS expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+    EQ              shift and go to state 37
+    NEQ             shift and go to state 38
+    LT              shift and go to state 39
+    LEQ             shift and go to state 40
+    GT              shift and go to state 41
+    GEQ             shift and go to state 42
+
+
+state 31
+
+    (13) print_stmt -> PRINT LPAREN expression . RPAREN
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    RPAREN          shift and go to state 47
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+    EQ              shift and go to state 37
+    NEQ             shift and go to state 38
+    LT              shift and go to state 39
+    LEQ             shift and go to state 40
+    GT              shift and go to state 41
+    GEQ             shift and go to state 42
+
+
+state 32
+
+    (14) if_stmt -> IF expression BLOCK_START . statement_list_opt BLOCK_END elif_list else_part
+    (2) statement_list_opt -> . statement_list
+    (3) statement_list_opt -> . empty
+    (4) statement_list -> . statement_list statement
+    (5) statement_list -> . statement
+    (39) empty -> .
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_END       reduce using rule 39 (empty -> .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    statement_list_opt             shift and go to state 48
+    statement_list                 shift and go to state 3
+    empty                          shift and go to state 4
+    statement                      shift and go to state 5
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 33
+
+    (22) expression -> expression PLUS . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 49
+
+state 34
+
+    (23) expression -> expression MINUS . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 50
+
+state 35
+
+    (24) expression -> expression TIMES . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 51
+
+state 36
+
+    (25) expression -> expression DIVIDE . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 52
+
+state 37
+
+    (26) expression -> expression EQ . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 53
+
+state 38
+
+    (27) expression -> expression NEQ . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 54
+
+state 39
+
+    (28) expression -> expression LT . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 55
+
+state 40
+
+    (29) expression -> expression LEQ . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 56
+
+state 41
+
+    (30) expression -> expression GT . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 57
+
+state 42
+
+    (31) expression -> expression GEQ . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 58
+
+state 43
+
+    (32) expression -> MINUS expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 32 (expression -> MINUS expression .)
+    PLUS            reduce using rule 32 (expression -> MINUS expression .)
+    MINUS           reduce using rule 32 (expression -> MINUS expression .)
+    TIMES           reduce using rule 32 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 32 (expression -> MINUS expression .)
+    EQ              reduce using rule 32 (expression -> MINUS expression .)
+    NEQ             reduce using rule 32 (expression -> MINUS expression .)
+    LT              reduce using rule 32 (expression -> MINUS expression .)
+    LEQ             reduce using rule 32 (expression -> MINUS expression .)
+    GT              reduce using rule 32 (expression -> MINUS expression .)
+    GEQ             reduce using rule 32 (expression -> MINUS expression .)
+    COMMENT         reduce using rule 32 (expression -> MINUS expression .)
+    IDENTIFIER      reduce using rule 32 (expression -> MINUS expression .)
+    PRINT           reduce using rule 32 (expression -> MINUS expression .)
+    IF              reduce using rule 32 (expression -> MINUS expression .)
+    WHILE           reduce using rule 32 (expression -> MINUS expression .)
+    FOR             reduce using rule 32 (expression -> MINUS expression .)
+    $end            reduce using rule 32 (expression -> MINUS expression .)
+    BLOCK_END       reduce using rule 32 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 32 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 33 ]
+  ! MINUS           [ shift and go to state 34 ]
+  ! TIMES           [ shift and go to state 35 ]
+  ! DIVIDE          [ shift and go to state 36 ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 44
+
+    (33) expression -> LPAREN expression . RPAREN
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    RPAREN          shift and go to state 59
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+    EQ              shift and go to state 37
+    NEQ             shift and go to state 38
+    LT              shift and go to state 39
+    LEQ             shift and go to state 40
+    GT              shift and go to state 41
+    GEQ             shift and go to state 42
+
+
+state 45
+
+    (20) while_stmt -> WHILE expression BLOCK_START . statement_list_opt BLOCK_END
+    (2) statement_list_opt -> . statement_list
+    (3) statement_list_opt -> . empty
+    (4) statement_list -> . statement_list statement
+    (5) statement_list -> . statement
+    (39) empty -> .
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_END       reduce using rule 39 (empty -> .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    statement_list_opt             shift and go to state 60
+    statement_list                 shift and go to state 3
+    empty                          shift and go to state 4
+    statement                      shift and go to state 5
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 46
+
+    (21) for_stmt -> FOR IDENTIFIER IN . RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    RANGE           shift and go to state 61
+
+
+state 47
+
+    (13) print_stmt -> PRINT LPAREN expression RPAREN .
+
+    COMMENT         reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+    IDENTIFIER      reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+    PRINT           reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+    IF              reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+    WHILE           reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+    FOR             reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+    $end            reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+    BLOCK_END       reduce using rule 13 (print_stmt -> PRINT LPAREN expression RPAREN .)
+
+
+state 48
+
+    (14) if_stmt -> IF expression BLOCK_START statement_list_opt . BLOCK_END elif_list else_part
+
+    BLOCK_END       shift and go to state 62
+
+
+state 49
+
+    (22) expression -> expression PLUS expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 22 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 22 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 22 (expression -> expression PLUS expression .)
+    EQ              reduce using rule 22 (expression -> expression PLUS expression .)
+    NEQ             reduce using rule 22 (expression -> expression PLUS expression .)
+    LT              reduce using rule 22 (expression -> expression PLUS expression .)
+    LEQ             reduce using rule 22 (expression -> expression PLUS expression .)
+    GT              reduce using rule 22 (expression -> expression PLUS expression .)
+    GEQ             reduce using rule 22 (expression -> expression PLUS expression .)
+    COMMENT         reduce using rule 22 (expression -> expression PLUS expression .)
+    IDENTIFIER      reduce using rule 22 (expression -> expression PLUS expression .)
+    PRINT           reduce using rule 22 (expression -> expression PLUS expression .)
+    IF              reduce using rule 22 (expression -> expression PLUS expression .)
+    WHILE           reduce using rule 22 (expression -> expression PLUS expression .)
+    FOR             reduce using rule 22 (expression -> expression PLUS expression .)
+    $end            reduce using rule 22 (expression -> expression PLUS expression .)
+    BLOCK_END       reduce using rule 22 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 22 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! TIMES           [ reduce using rule 22 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 22 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 33 ]
+  ! MINUS           [ shift and go to state 34 ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 50
+
+    (23) expression -> expression MINUS expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 23 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 23 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 23 (expression -> expression MINUS expression .)
+    EQ              reduce using rule 23 (expression -> expression MINUS expression .)
+    NEQ             reduce using rule 23 (expression -> expression MINUS expression .)
+    LT              reduce using rule 23 (expression -> expression MINUS expression .)
+    LEQ             reduce using rule 23 (expression -> expression MINUS expression .)
+    GT              reduce using rule 23 (expression -> expression MINUS expression .)
+    GEQ             reduce using rule 23 (expression -> expression MINUS expression .)
+    COMMENT         reduce using rule 23 (expression -> expression MINUS expression .)
+    IDENTIFIER      reduce using rule 23 (expression -> expression MINUS expression .)
+    PRINT           reduce using rule 23 (expression -> expression MINUS expression .)
+    IF              reduce using rule 23 (expression -> expression MINUS expression .)
+    WHILE           reduce using rule 23 (expression -> expression MINUS expression .)
+    FOR             reduce using rule 23 (expression -> expression MINUS expression .)
+    $end            reduce using rule 23 (expression -> expression MINUS expression .)
+    BLOCK_END       reduce using rule 23 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 23 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! TIMES           [ reduce using rule 23 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 23 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 33 ]
+  ! MINUS           [ shift and go to state 34 ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 51
+
+    (24) expression -> expression TIMES expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 24 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 24 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 24 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 24 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 24 (expression -> expression TIMES expression .)
+    EQ              reduce using rule 24 (expression -> expression TIMES expression .)
+    NEQ             reduce using rule 24 (expression -> expression TIMES expression .)
+    LT              reduce using rule 24 (expression -> expression TIMES expression .)
+    LEQ             reduce using rule 24 (expression -> expression TIMES expression .)
+    GT              reduce using rule 24 (expression -> expression TIMES expression .)
+    GEQ             reduce using rule 24 (expression -> expression TIMES expression .)
+    COMMENT         reduce using rule 24 (expression -> expression TIMES expression .)
+    IDENTIFIER      reduce using rule 24 (expression -> expression TIMES expression .)
+    PRINT           reduce using rule 24 (expression -> expression TIMES expression .)
+    IF              reduce using rule 24 (expression -> expression TIMES expression .)
+    WHILE           reduce using rule 24 (expression -> expression TIMES expression .)
+    FOR             reduce using rule 24 (expression -> expression TIMES expression .)
+    $end            reduce using rule 24 (expression -> expression TIMES expression .)
+    BLOCK_END       reduce using rule 24 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 24 (expression -> expression TIMES expression .)
+
+  ! PLUS            [ shift and go to state 33 ]
+  ! MINUS           [ shift and go to state 34 ]
+  ! TIMES           [ shift and go to state 35 ]
+  ! DIVIDE          [ shift and go to state 36 ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 52
+
+    (25) expression -> expression DIVIDE expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 25 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 25 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 25 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 25 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 25 (expression -> expression DIVIDE expression .)
+    EQ              reduce using rule 25 (expression -> expression DIVIDE expression .)
+    NEQ             reduce using rule 25 (expression -> expression DIVIDE expression .)
+    LT              reduce using rule 25 (expression -> expression DIVIDE expression .)
+    LEQ             reduce using rule 25 (expression -> expression DIVIDE expression .)
+    GT              reduce using rule 25 (expression -> expression DIVIDE expression .)
+    GEQ             reduce using rule 25 (expression -> expression DIVIDE expression .)
+    COMMENT         reduce using rule 25 (expression -> expression DIVIDE expression .)
+    IDENTIFIER      reduce using rule 25 (expression -> expression DIVIDE expression .)
+    PRINT           reduce using rule 25 (expression -> expression DIVIDE expression .)
+    IF              reduce using rule 25 (expression -> expression DIVIDE expression .)
+    WHILE           reduce using rule 25 (expression -> expression DIVIDE expression .)
+    FOR             reduce using rule 25 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 25 (expression -> expression DIVIDE expression .)
+    BLOCK_END       reduce using rule 25 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 25 (expression -> expression DIVIDE expression .)
+
+  ! PLUS            [ shift and go to state 33 ]
+  ! MINUS           [ shift and go to state 34 ]
+  ! TIMES           [ shift and go to state 35 ]
+  ! DIVIDE          [ shift and go to state 36 ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 53
+
+    (26) expression -> expression EQ expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 26 (expression -> expression EQ expression .)
+    EQ              reduce using rule 26 (expression -> expression EQ expression .)
+    NEQ             reduce using rule 26 (expression -> expression EQ expression .)
+    LT              reduce using rule 26 (expression -> expression EQ expression .)
+    LEQ             reduce using rule 26 (expression -> expression EQ expression .)
+    GT              reduce using rule 26 (expression -> expression EQ expression .)
+    GEQ             reduce using rule 26 (expression -> expression EQ expression .)
+    COMMENT         reduce using rule 26 (expression -> expression EQ expression .)
+    IDENTIFIER      reduce using rule 26 (expression -> expression EQ expression .)
+    PRINT           reduce using rule 26 (expression -> expression EQ expression .)
+    IF              reduce using rule 26 (expression -> expression EQ expression .)
+    WHILE           reduce using rule 26 (expression -> expression EQ expression .)
+    FOR             reduce using rule 26 (expression -> expression EQ expression .)
+    $end            reduce using rule 26 (expression -> expression EQ expression .)
+    BLOCK_END       reduce using rule 26 (expression -> expression EQ expression .)
+    RPAREN          reduce using rule 26 (expression -> expression EQ expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! PLUS            [ reduce using rule 26 (expression -> expression EQ expression .) ]
+  ! MINUS           [ reduce using rule 26 (expression -> expression EQ expression .) ]
+  ! TIMES           [ reduce using rule 26 (expression -> expression EQ expression .) ]
+  ! DIVIDE          [ reduce using rule 26 (expression -> expression EQ expression .) ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 54
+
+    (27) expression -> expression NEQ expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 27 (expression -> expression NEQ expression .)
+    EQ              reduce using rule 27 (expression -> expression NEQ expression .)
+    NEQ             reduce using rule 27 (expression -> expression NEQ expression .)
+    LT              reduce using rule 27 (expression -> expression NEQ expression .)
+    LEQ             reduce using rule 27 (expression -> expression NEQ expression .)
+    GT              reduce using rule 27 (expression -> expression NEQ expression .)
+    GEQ             reduce using rule 27 (expression -> expression NEQ expression .)
+    COMMENT         reduce using rule 27 (expression -> expression NEQ expression .)
+    IDENTIFIER      reduce using rule 27 (expression -> expression NEQ expression .)
+    PRINT           reduce using rule 27 (expression -> expression NEQ expression .)
+    IF              reduce using rule 27 (expression -> expression NEQ expression .)
+    WHILE           reduce using rule 27 (expression -> expression NEQ expression .)
+    FOR             reduce using rule 27 (expression -> expression NEQ expression .)
+    $end            reduce using rule 27 (expression -> expression NEQ expression .)
+    BLOCK_END       reduce using rule 27 (expression -> expression NEQ expression .)
+    RPAREN          reduce using rule 27 (expression -> expression NEQ expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! PLUS            [ reduce using rule 27 (expression -> expression NEQ expression .) ]
+  ! MINUS           [ reduce using rule 27 (expression -> expression NEQ expression .) ]
+  ! TIMES           [ reduce using rule 27 (expression -> expression NEQ expression .) ]
+  ! DIVIDE          [ reduce using rule 27 (expression -> expression NEQ expression .) ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 55
+
+    (28) expression -> expression LT expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 28 (expression -> expression LT expression .)
+    EQ              reduce using rule 28 (expression -> expression LT expression .)
+    NEQ             reduce using rule 28 (expression -> expression LT expression .)
+    LT              reduce using rule 28 (expression -> expression LT expression .)
+    LEQ             reduce using rule 28 (expression -> expression LT expression .)
+    GT              reduce using rule 28 (expression -> expression LT expression .)
+    GEQ             reduce using rule 28 (expression -> expression LT expression .)
+    COMMENT         reduce using rule 28 (expression -> expression LT expression .)
+    IDENTIFIER      reduce using rule 28 (expression -> expression LT expression .)
+    PRINT           reduce using rule 28 (expression -> expression LT expression .)
+    IF              reduce using rule 28 (expression -> expression LT expression .)
+    WHILE           reduce using rule 28 (expression -> expression LT expression .)
+    FOR             reduce using rule 28 (expression -> expression LT expression .)
+    $end            reduce using rule 28 (expression -> expression LT expression .)
+    BLOCK_END       reduce using rule 28 (expression -> expression LT expression .)
+    RPAREN          reduce using rule 28 (expression -> expression LT expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! PLUS            [ reduce using rule 28 (expression -> expression LT expression .) ]
+  ! MINUS           [ reduce using rule 28 (expression -> expression LT expression .) ]
+  ! TIMES           [ reduce using rule 28 (expression -> expression LT expression .) ]
+  ! DIVIDE          [ reduce using rule 28 (expression -> expression LT expression .) ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 56
+
+    (29) expression -> expression LEQ expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 29 (expression -> expression LEQ expression .)
+    EQ              reduce using rule 29 (expression -> expression LEQ expression .)
+    NEQ             reduce using rule 29 (expression -> expression LEQ expression .)
+    LT              reduce using rule 29 (expression -> expression LEQ expression .)
+    LEQ             reduce using rule 29 (expression -> expression LEQ expression .)
+    GT              reduce using rule 29 (expression -> expression LEQ expression .)
+    GEQ             reduce using rule 29 (expression -> expression LEQ expression .)
+    COMMENT         reduce using rule 29 (expression -> expression LEQ expression .)
+    IDENTIFIER      reduce using rule 29 (expression -> expression LEQ expression .)
+    PRINT           reduce using rule 29 (expression -> expression LEQ expression .)
+    IF              reduce using rule 29 (expression -> expression LEQ expression .)
+    WHILE           reduce using rule 29 (expression -> expression LEQ expression .)
+    FOR             reduce using rule 29 (expression -> expression LEQ expression .)
+    $end            reduce using rule 29 (expression -> expression LEQ expression .)
+    BLOCK_END       reduce using rule 29 (expression -> expression LEQ expression .)
+    RPAREN          reduce using rule 29 (expression -> expression LEQ expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! PLUS            [ reduce using rule 29 (expression -> expression LEQ expression .) ]
+  ! MINUS           [ reduce using rule 29 (expression -> expression LEQ expression .) ]
+  ! TIMES           [ reduce using rule 29 (expression -> expression LEQ expression .) ]
+  ! DIVIDE          [ reduce using rule 29 (expression -> expression LEQ expression .) ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 57
+
+    (30) expression -> expression GT expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 30 (expression -> expression GT expression .)
+    EQ              reduce using rule 30 (expression -> expression GT expression .)
+    NEQ             reduce using rule 30 (expression -> expression GT expression .)
+    LT              reduce using rule 30 (expression -> expression GT expression .)
+    LEQ             reduce using rule 30 (expression -> expression GT expression .)
+    GT              reduce using rule 30 (expression -> expression GT expression .)
+    GEQ             reduce using rule 30 (expression -> expression GT expression .)
+    COMMENT         reduce using rule 30 (expression -> expression GT expression .)
+    IDENTIFIER      reduce using rule 30 (expression -> expression GT expression .)
+    PRINT           reduce using rule 30 (expression -> expression GT expression .)
+    IF              reduce using rule 30 (expression -> expression GT expression .)
+    WHILE           reduce using rule 30 (expression -> expression GT expression .)
+    FOR             reduce using rule 30 (expression -> expression GT expression .)
+    $end            reduce using rule 30 (expression -> expression GT expression .)
+    BLOCK_END       reduce using rule 30 (expression -> expression GT expression .)
+    RPAREN          reduce using rule 30 (expression -> expression GT expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! PLUS            [ reduce using rule 30 (expression -> expression GT expression .) ]
+  ! MINUS           [ reduce using rule 30 (expression -> expression GT expression .) ]
+  ! TIMES           [ reduce using rule 30 (expression -> expression GT expression .) ]
+  ! DIVIDE          [ reduce using rule 30 (expression -> expression GT expression .) ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 58
+
+    (31) expression -> expression GEQ expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     reduce using rule 31 (expression -> expression GEQ expression .)
+    EQ              reduce using rule 31 (expression -> expression GEQ expression .)
+    NEQ             reduce using rule 31 (expression -> expression GEQ expression .)
+    LT              reduce using rule 31 (expression -> expression GEQ expression .)
+    LEQ             reduce using rule 31 (expression -> expression GEQ expression .)
+    GT              reduce using rule 31 (expression -> expression GEQ expression .)
+    GEQ             reduce using rule 31 (expression -> expression GEQ expression .)
+    COMMENT         reduce using rule 31 (expression -> expression GEQ expression .)
+    IDENTIFIER      reduce using rule 31 (expression -> expression GEQ expression .)
+    PRINT           reduce using rule 31 (expression -> expression GEQ expression .)
+    IF              reduce using rule 31 (expression -> expression GEQ expression .)
+    WHILE           reduce using rule 31 (expression -> expression GEQ expression .)
+    FOR             reduce using rule 31 (expression -> expression GEQ expression .)
+    $end            reduce using rule 31 (expression -> expression GEQ expression .)
+    BLOCK_END       reduce using rule 31 (expression -> expression GEQ expression .)
+    RPAREN          reduce using rule 31 (expression -> expression GEQ expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+
+  ! PLUS            [ reduce using rule 31 (expression -> expression GEQ expression .) ]
+  ! MINUS           [ reduce using rule 31 (expression -> expression GEQ expression .) ]
+  ! TIMES           [ reduce using rule 31 (expression -> expression GEQ expression .) ]
+  ! DIVIDE          [ reduce using rule 31 (expression -> expression GEQ expression .) ]
+  ! EQ              [ shift and go to state 37 ]
+  ! NEQ             [ shift and go to state 38 ]
+  ! LT              [ shift and go to state 39 ]
+  ! LEQ             [ shift and go to state 40 ]
+  ! GT              [ shift and go to state 41 ]
+  ! GEQ             [ shift and go to state 42 ]
+
+
+state 59
+
+    (33) expression -> LPAREN expression RPAREN .
+
+    BLOCK_START     reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    EQ              reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    NEQ             reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    LT              reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    LEQ             reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    GT              reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    GEQ             reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    COMMENT         reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    IDENTIFIER      reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    PRINT           reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    IF              reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    WHILE           reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    FOR             reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    BLOCK_END       reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 33 (expression -> LPAREN expression RPAREN .)
+
+
+state 60
+
+    (20) while_stmt -> WHILE expression BLOCK_START statement_list_opt . BLOCK_END
+
+    BLOCK_END       shift and go to state 63
+
+
+state 61
+
+    (21) for_stmt -> FOR IDENTIFIER IN RANGE . LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    LPAREN          shift and go to state 64
+
+
+state 62
+
+    (14) if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END . elif_list else_part
+    (15) elif_list -> . empty
+    (16) elif_list -> . ELSEIF expression BLOCK_START statement_list_opt BLOCK_END
+    (17) elif_list -> . elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END
+    (39) empty -> .
+
+  ! shift/reduce conflict for ELSEIF resolved as shift
+    ELSEIF          shift and go to state 67
+    ELSE            reduce using rule 39 (empty -> .)
+    COMMENT         reduce using rule 39 (empty -> .)
+    IDENTIFIER      reduce using rule 39 (empty -> .)
+    PRINT           reduce using rule 39 (empty -> .)
+    IF              reduce using rule 39 (empty -> .)
+    WHILE           reduce using rule 39 (empty -> .)
+    FOR             reduce using rule 39 (empty -> .)
+    $end            reduce using rule 39 (empty -> .)
+    BLOCK_END       reduce using rule 39 (empty -> .)
+
+  ! ELSEIF          [ reduce using rule 39 (empty -> .) ]
+
+    elif_list                      shift and go to state 65
+    empty                          shift and go to state 66
+
+state 63
+
+    (20) while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .
+
+    COMMENT         reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+    IDENTIFIER      reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+    PRINT           reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+    IF              reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+    WHILE           reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+    FOR             reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+    $end            reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+    BLOCK_END       reduce using rule 20 (while_stmt -> WHILE expression BLOCK_START statement_list_opt BLOCK_END .)
+
+
+state 64
+
+    (21) for_stmt -> FOR IDENTIFIER IN RANGE LPAREN . NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    NUMBER          shift and go to state 68
+
+
+state 65
+
+    (14) if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list . else_part
+    (17) elif_list -> elif_list . ELSEIF expression BLOCK_START statement_list_opt BLOCK_END
+    (18) else_part -> . empty
+    (19) else_part -> . ELSE BLOCK_START statement_list_opt BLOCK_END
+    (39) empty -> .
+
+    ELSEIF          shift and go to state 70
+    ELSE            shift and go to state 72
+    COMMENT         reduce using rule 39 (empty -> .)
+    IDENTIFIER      reduce using rule 39 (empty -> .)
+    PRINT           reduce using rule 39 (empty -> .)
+    IF              reduce using rule 39 (empty -> .)
+    WHILE           reduce using rule 39 (empty -> .)
+    FOR             reduce using rule 39 (empty -> .)
+    $end            reduce using rule 39 (empty -> .)
+    BLOCK_END       reduce using rule 39 (empty -> .)
+
+    else_part                      shift and go to state 69
+    empty                          shift and go to state 71
+
+state 66
+
+    (15) elif_list -> empty .
+
+    ELSEIF          reduce using rule 15 (elif_list -> empty .)
+    ELSE            reduce using rule 15 (elif_list -> empty .)
+    COMMENT         reduce using rule 15 (elif_list -> empty .)
+    IDENTIFIER      reduce using rule 15 (elif_list -> empty .)
+    PRINT           reduce using rule 15 (elif_list -> empty .)
+    IF              reduce using rule 15 (elif_list -> empty .)
+    WHILE           reduce using rule 15 (elif_list -> empty .)
+    FOR             reduce using rule 15 (elif_list -> empty .)
+    $end            reduce using rule 15 (elif_list -> empty .)
+    BLOCK_END       reduce using rule 15 (elif_list -> empty .)
+
+
+state 67
+
+    (16) elif_list -> ELSEIF . expression BLOCK_START statement_list_opt BLOCK_END
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 73
+
+state 68
+
+    (21) for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER . RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    RPAREN          shift and go to state 74
+
+
+state 69
+
+    (14) if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .
+
+    COMMENT         reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+    IDENTIFIER      reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+    PRINT           reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+    IF              reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+    WHILE           reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+    FOR             reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+    $end            reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+    BLOCK_END       reduce using rule 14 (if_stmt -> IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part .)
+
+
+state 70
+
+    (17) elif_list -> elif_list ELSEIF . expression BLOCK_START statement_list_opt BLOCK_END
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . expression TIMES expression
+    (25) expression -> . expression DIVIDE expression
+    (26) expression -> . expression EQ expression
+    (27) expression -> . expression NEQ expression
+    (28) expression -> . expression LT expression
+    (29) expression -> . expression LEQ expression
+    (30) expression -> . expression GT expression
+    (31) expression -> . expression GEQ expression
+    (32) expression -> . MINUS expression
+    (33) expression -> . LPAREN expression RPAREN
+    (34) expression -> . NUMBER
+    (35) expression -> . BOOLEAN
+    (36) expression -> . NULL
+    (37) expression -> . STRING
+    (38) expression -> . IDENTIFIER
+
+    MINUS           shift and go to state 21
+    LPAREN          shift and go to state 22
+    NUMBER          shift and go to state 23
+    BOOLEAN         shift and go to state 24
+    NULL            shift and go to state 25
+    STRING          shift and go to state 26
+    IDENTIFIER      shift and go to state 27
+
+    expression                     shift and go to state 75
+
+state 71
+
+    (18) else_part -> empty .
+
+    COMMENT         reduce using rule 18 (else_part -> empty .)
+    IDENTIFIER      reduce using rule 18 (else_part -> empty .)
+    PRINT           reduce using rule 18 (else_part -> empty .)
+    IF              reduce using rule 18 (else_part -> empty .)
+    WHILE           reduce using rule 18 (else_part -> empty .)
+    FOR             reduce using rule 18 (else_part -> empty .)
+    $end            reduce using rule 18 (else_part -> empty .)
+    BLOCK_END       reduce using rule 18 (else_part -> empty .)
+
+
+state 72
+
+    (19) else_part -> ELSE . BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_START     shift and go to state 76
+
+
+state 73
+
+    (16) elif_list -> ELSEIF expression . BLOCK_START statement_list_opt BLOCK_END
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     shift and go to state 77
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+    EQ              shift and go to state 37
+    NEQ             shift and go to state 38
+    LT              shift and go to state 39
+    LEQ             shift and go to state 40
+    GT              shift and go to state 41
+    GEQ             shift and go to state 42
+
+
+state 74
+
+    (21) for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN . BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_START     shift and go to state 78
+
+
+state 75
+
+    (17) elif_list -> elif_list ELSEIF expression . BLOCK_START statement_list_opt BLOCK_END
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (24) expression -> expression . TIMES expression
+    (25) expression -> expression . DIVIDE expression
+    (26) expression -> expression . EQ expression
+    (27) expression -> expression . NEQ expression
+    (28) expression -> expression . LT expression
+    (29) expression -> expression . LEQ expression
+    (30) expression -> expression . GT expression
+    (31) expression -> expression . GEQ expression
+
+    BLOCK_START     shift and go to state 79
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    TIMES           shift and go to state 35
+    DIVIDE          shift and go to state 36
+    EQ              shift and go to state 37
+    NEQ             shift and go to state 38
+    LT              shift and go to state 39
+    LEQ             shift and go to state 40
+    GT              shift and go to state 41
+    GEQ             shift and go to state 42
+
+
+state 76
+
+    (19) else_part -> ELSE BLOCK_START . statement_list_opt BLOCK_END
+    (2) statement_list_opt -> . statement_list
+    (3) statement_list_opt -> . empty
+    (4) statement_list -> . statement_list statement
+    (5) statement_list -> . statement
+    (39) empty -> .
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_END       reduce using rule 39 (empty -> .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    statement_list_opt             shift and go to state 80
+    statement_list                 shift and go to state 3
+    empty                          shift and go to state 4
+    statement                      shift and go to state 5
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 77
+
+    (16) elif_list -> ELSEIF expression BLOCK_START . statement_list_opt BLOCK_END
+    (2) statement_list_opt -> . statement_list
+    (3) statement_list_opt -> . empty
+    (4) statement_list -> . statement_list statement
+    (5) statement_list -> . statement
+    (39) empty -> .
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_END       reduce using rule 39 (empty -> .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    statement_list_opt             shift and go to state 81
+    statement_list                 shift and go to state 3
+    empty                          shift and go to state 4
+    statement                      shift and go to state 5
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 78
+
+    (21) for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START . statement_list_opt BLOCK_END
+    (2) statement_list_opt -> . statement_list
+    (3) statement_list_opt -> . empty
+    (4) statement_list -> . statement_list statement
+    (5) statement_list -> . statement
+    (39) empty -> .
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_END       reduce using rule 39 (empty -> .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    statement_list_opt             shift and go to state 82
+    statement_list                 shift and go to state 3
+    empty                          shift and go to state 4
+    statement                      shift and go to state 5
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 79
+
+    (17) elif_list -> elif_list ELSEIF expression BLOCK_START . statement_list_opt BLOCK_END
+    (2) statement_list_opt -> . statement_list
+    (3) statement_list_opt -> . empty
+    (4) statement_list -> . statement_list statement
+    (5) statement_list -> . statement
+    (39) empty -> .
+    (6) statement -> . assignment
+    (7) statement -> . print_stmt
+    (8) statement -> . if_stmt
+    (9) statement -> . while_stmt
+    (10) statement -> . for_stmt
+    (11) statement -> . COMMENT
+    (12) assignment -> . IDENTIFIER EQUALS expression
+    (13) print_stmt -> . PRINT LPAREN expression RPAREN
+    (14) if_stmt -> . IF expression BLOCK_START statement_list_opt BLOCK_END elif_list else_part
+    (20) while_stmt -> . WHILE expression BLOCK_START statement_list_opt BLOCK_END
+    (21) for_stmt -> . FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END
+
+    BLOCK_END       reduce using rule 39 (empty -> .)
+    COMMENT         shift and go to state 11
+    IDENTIFIER      shift and go to state 12
+    PRINT           shift and go to state 13
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+
+    statement_list_opt             shift and go to state 83
+    statement_list                 shift and go to state 3
+    empty                          shift and go to state 4
+    statement                      shift and go to state 5
+    assignment                     shift and go to state 6
+    print_stmt                     shift and go to state 7
+    if_stmt                        shift and go to state 8
+    while_stmt                     shift and go to state 9
+    for_stmt                       shift and go to state 10
+
+state 80
+
+    (19) else_part -> ELSE BLOCK_START statement_list_opt . BLOCK_END
+
+    BLOCK_END       shift and go to state 84
+
+
+state 81
+
+    (16) elif_list -> ELSEIF expression BLOCK_START statement_list_opt . BLOCK_END
+
+    BLOCK_END       shift and go to state 85
+
+
+state 82
+
+    (21) for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt . BLOCK_END
+
+    BLOCK_END       shift and go to state 86
+
+
+state 83
+
+    (17) elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt . BLOCK_END
+
+    BLOCK_END       shift and go to state 87
+
+
+state 84
+
+    (19) else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .
+
+    COMMENT         reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+    IDENTIFIER      reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+    PRINT           reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+    IF              reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+    WHILE           reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+    FOR             reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+    $end            reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+    BLOCK_END       reduce using rule 19 (else_part -> ELSE BLOCK_START statement_list_opt BLOCK_END .)
+
+
+state 85
+
+    (16) elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .
+
+    ELSEIF          reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    ELSE            reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    COMMENT         reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    IDENTIFIER      reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    PRINT           reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    IF              reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    WHILE           reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    FOR             reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    $end            reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    BLOCK_END       reduce using rule 16 (elif_list -> ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+
+
+state 86
+
+    (21) for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .
+
+    COMMENT         reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+    IDENTIFIER      reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+    PRINT           reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+    IF              reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+    WHILE           reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+    FOR             reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+    $end            reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+    BLOCK_END       reduce using rule 21 (for_stmt -> FOR IDENTIFIER IN RANGE LPAREN NUMBER RPAREN BLOCK_START statement_list_opt BLOCK_END .)
+
+
+state 87
+
+    (17) elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .
+
+    ELSEIF          reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    ELSE            reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    COMMENT         reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    IDENTIFIER      reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    PRINT           reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    IF              reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    WHILE           reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    FOR             reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    $end            reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+    BLOCK_END       reduce using rule 17 (elif_list -> elif_list ELSEIF expression BLOCK_START statement_list_opt BLOCK_END .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ELSEIF in state 62 resolved as shift

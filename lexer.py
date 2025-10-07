@@ -7,6 +7,8 @@ reserved = {
     'else': 'ELSE',
     'while': 'WHILE',
     'for': 'FOR',
+    'in': 'IN',
+    'range': 'RANGE',
     'true': 'BOOLEAN',
     'false': 'BOOLEAN',
     'null': 'NULL',
@@ -26,10 +28,8 @@ base_tokens = [
 
     # Brackets and punctuation
     'LPAREN', 'RPAREN',
-    'LBRACE', 'RBRACE',
     'BLOCK_START', 'BLOCK_END',
-    'DOT', 'DOUBLE_QUOTE',
-    'SEMICOLON', 'COMMA', 'COLON',
+    'SEMICOLON',
 
     'COMMENT',
 
@@ -61,15 +61,9 @@ t_LEQ           = r'<='
 t_GEQ           = r'>='
 t_LPAREN        = r'\('
 t_RPAREN        = r'\)'
-t_LBRACE        = r'\['
-t_RBRACE        = r'\]'
 t_BLOCK_START   = r'\{'
 t_BLOCK_END     = r'\}'
-t_DOT           = r'\.'
-t_DOUBLE_QUOTE  = r'"'
 t_SEMICOLON     = r';'
-t_COMMA         = r','
-t_COLON         = r':'
 t_COMMENT       = r'\#.*'
 t_NUMBER        = r'\d+(\.\d+)?'
 t_STRING        = r'"([^"\\]*(\\.[^"\\]*)*)"'   # string with escaped quotes

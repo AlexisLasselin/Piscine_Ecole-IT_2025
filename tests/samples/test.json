@@ -1,10 +1,6 @@
 [
   [
     "IDENTIFIER",
-    "var"
-  ],
-  [
-    "IDENTIFIER",
     "a"
   ],
   [
@@ -14,10 +10,6 @@
   [
     "NUMBER",
     "5"
-  ],
-  [
-    "IDENTIFIER",
-    "var"
   ],
   [
     "IDENTIFIER",

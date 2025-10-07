@@ -1,73 +1,58 @@
 # ast_visualizer.py
 from graphviz import Digraph
-from my_ast import Number, Variable, BinaryOp, Assignment, Print
 
-def add_nodes_edges(dot, node, parent=None):
+def generate_ast_graph(ast, filename="ast", view=True):
+    """
+    Generate a Graphviz visualization of the AST.
+    :param ast: root AST node
+    :param filename: output filename (without extension)
+    :param view: open the file automatically if True
+    """
+    dot = Digraph(comment="Abstract Syntax Tree", format="png")
+    _add_node(dot, ast)
+    dot.render(filename, view=view)
+
+def _add_node(dot, node, parent_id=None, counter=[0]):
+    """
+    Recursive helper to add nodes and edges to the Graphviz graph.
+    """
+    node_id = str(counter[0])
+    counter[0] += 1
+
+    if isinstance(node, list):
+        label = "Block"
+        dot.node(node_id, label)
+        if parent_id is not None:
+            dot.edge(parent_id, node_id)
+        for child in node:
+            if child is not None:
+                _add_node(dot, child, node_id, counter)
+        return
+
     if node is None:
         return
 
-    # 🔹 Label et couleur selon le type de nœud
-    if isinstance(node, Number):
-        label = f"Literal = {node.value}"
-        color = "#ffb3b3"  # rose clair
-        shape = "ellipse"
-    elif isinstance(node, Variable):
-        label = f"Identifier ({node.name})"
-        color = "#a3e4d7"  # vert menthe
-        shape = "ellipse"
-    elif isinstance(node, BinaryOp):
-        label = f"BinaryExpression ({op_symbol(node.op)})"
-        color = "#a9dfbf"  # vert clair
-        shape = "box"
-    elif isinstance(node, Assignment):
-        label = f"Assignment ({node.name})"
-        color = "#f9e79f"  # jaune pâle
-        shape = "parallelogram"
-    elif isinstance(node, Print):
-        label = "FunctionCall (print)"
-        color = "#c39bd3"  # violet clair
-        shape = "diamond"
-    else:
-        label = type(node).__name__
-        color = "white"
-        shape = "ellipse"
+    # Label according to node type
+    label = node.__class__.__name__
+    if hasattr(node, "name"):
+        label += f"\\n{node.name}"
+    if hasattr(node, "op"):
+        label += f"\\n{node.op}"
+    if hasattr(node, "value") and node.value is not None:
+        label += f"\\n{node.value}"
 
-    node_id = str(id(node))
-    dot.node(node_id, label, style="filled", fillcolor=color, shape=shape, color="black")
+    dot.node(node_id, label)
 
-    # 🔹 Relier au parent s’il existe
-    if parent:
-        dot.edge(parent, node_id, color="gray50")
+    if parent_id is not None:
+        dot.edge(parent_id, node_id)
 
-    # 🔹 Explorer les sous-nœuds
-    for attr in ['left', 'right', 'expr']:
-        child = getattr(node, attr, None)
-        if child:
-            add_nodes_edges(dot, child, node_id)
+    # Recurse on children
+    if hasattr(node, "__dict__"):
+        for attr, child in vars(node).items():
+            if isinstance(child, (list, tuple)):
+                for c in child:
+                    if c is not None:
+                        _add_node(dot, c, node_id, counter)
+            elif child is not None and not isinstance(child, (str, int, float, bool)):
+                 _add_node(dot, child, node_id, counter)
 
-def op_symbol(op):
-    """Convertit le type de token en symbole lisible"""
-    return {
-        "PLUS": "+",
-        "MINUS": "-",
-        "MULT": "*",
-        "DIV": "/"
-    }.get(op, op)
-
-def generate_ast_graph(ast):
-    dot = Digraph(comment="AST complet", format="png")
-    dot.attr(bgcolor="white")
-    dot.attr(rankdir="TB")  # top -> bottom
-    dot.attr('node', fontname="Helvetica")
-
-    # 🔹 Nœud racine “Program”
-    program_id = "ProgramRoot"
-    dot.node(program_id, "Program", shape="oval", style="filled", fillcolor="white")
-
-    # 🔹 Chaque instruction devient un enfant direct du nœud “Program”
-    for node in ast:
-        add_nodes_edges(dot, node, parent=program_id)
-
-    # 🔹 Génération du fichier
-    output_path = dot.render("ast_graph_full", view=True)
-    print(f"✅ Graphe généré : {output_path}")

@@ -40,8 +40,8 @@
     "20"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "IDENTIFIER",
@@ -78,6 +78,10 @@
   [
     "RPAREN",
     ")"
+  ],
+  [
+    "BLOCK_END",
+    "}"
   ],
   [
     "PRINT",

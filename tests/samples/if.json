@@ -1,29 +1,5 @@
 [
   [
-    "IDENTIFIER",
-    "a"
-  ],
-  [
-    "EQUALS",
-    "="
-  ],
-  [
-    "NUMBER",
-    "5"
-  ],
-  [
-    "IDENTIFIER",
-    "b"
-  ],
-  [
-    "EQUALS",
-    "="
-  ],
-  [
-    "NUMBER",
-    "3"
-  ],
-  [
     "IF",
     "if"
   ],
@@ -40,8 +16,8 @@
     "b"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "PRINT",
@@ -60,8 +36,12 @@
     ")"
   ],
   [
-    "IDENTIFIER",
-    "elif"
+    "BLOCK_END",
+    "}"
+  ],
+  [
+    "ELSEIF",
+    "elseif"
   ],
   [
     "IDENTIFIER",
@@ -76,8 +56,8 @@
     "b"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "PRINT",
@@ -96,8 +76,12 @@
     ")"
   ],
   [
-    "IDENTIFIER",
-    "elif"
+    "BLOCK_END",
+    "}"
+  ],
+  [
+    "ELSEIF",
+    "elseif"
   ],
   [
     "IDENTIFIER",
@@ -112,8 +96,8 @@
     "b"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "PRINT",
@@ -132,8 +116,12 @@
     ")"
   ],
   [
-    "IDENTIFIER",
-    "elif"
+    "BLOCK_END",
+    "}"
+  ],
+  [
+    "ELSEIF",
+    "elseif"
   ],
   [
     "IDENTIFIER",
@@ -148,8 +136,8 @@
     "b"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "PRINT",
@@ -168,8 +156,12 @@
     ")"
   ],
   [
-    "IDENTIFIER",
-    "elif"
+    "BLOCK_END",
+    "}"
+  ],
+  [
+    "ELSEIF",
+    "elseif"
   ],
   [
     "IDENTIFIER",
@@ -184,8 +176,8 @@
     "b"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "PRINT",
@@ -204,8 +196,12 @@
     ")"
   ],
   [
-    "IDENTIFIER",
-    "elif"
+    "BLOCK_END",
+    "}"
+  ],
+  [
+    "ELSEIF",
+    "elseif"
   ],
   [
     "IDENTIFIER",
@@ -220,8 +216,8 @@
     "b"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "PRINT",
@@ -240,12 +236,16 @@
     ")"
   ],
   [
+    "BLOCK_END",
+    "}"
+  ],
+  [
     "ELSE",
     "else"
   ],
   [
-    "COLON",
-    ":"
+    "BLOCK_START",
+    "{"
   ],
   [
     "PRINT",
@@ -257,10 +257,14 @@
   ],
   [
     "STRING",
-    "\"Plus de commparaison \""
+    "\"Plus de comparaison\""
   ],
   [
     "RPAREN",
     ")"
+  ],
+  [
+    "BLOCK_END",
+    "}"
   ]
 ]
