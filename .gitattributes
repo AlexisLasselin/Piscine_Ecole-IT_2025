@@ -1,0 +1,7 @@
+# Force Unix line endings (LF) for Piscine source files and JSON
+*.pisc text eol=lf
+*.json text eol=lf
+
+# Force UTF-8 encoding (no BOM)
+*.pisc working-tree-encoding=UTF-8
+*.json working-tree-encoding=UTF-8
