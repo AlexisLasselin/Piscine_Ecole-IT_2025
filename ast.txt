@@ -30,3 +30,9 @@ ast = {
                         "type": "BinaryExpression",
                         "operator": "-",
                         "left": {"type": "Identifier", "name": "b"},
+                    }
+                }
+            }
+        }
+    ]
+}
