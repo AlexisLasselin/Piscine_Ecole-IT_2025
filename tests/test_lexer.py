@@ -17,7 +17,7 @@ def test_lexer_against_golden(source_file, request):
     json_file = source_file.replace(".pisc", ".json")
     error_file = source_file.replace(".pisc", ".errors.json")
 
-    with open(source_file, "r") as f:
+    with open(source_file, "r", encoding="utf-8") as f:
         code = f.read()
 
     tokens = tokenize(code)
@@ -35,11 +35,11 @@ def test_lexer_against_golden(source_file, request):
     else:
         if request.config.update_golden:
             # Regenerate .json
-            with open(json_file, "w") as f:
-                json.dump(tokens, f, indent=2)
+            with open(json_file, "w", encoding="utf-8") as f:
+                json.dump(tokens, f, indent=2, ensure_ascii=False)
             pytest.skip(f"Golden tokens updated for {source_file}")
         else:
-            with open(json_file, "r") as f:
+            with open(json_file, "r", encoding="utf-8") as f:
                 expected = json.load(f)
             assert lexer_errors == []
             assert tokens == [tuple(e) for e in expected], f"Token mismatch in {source_file}"
