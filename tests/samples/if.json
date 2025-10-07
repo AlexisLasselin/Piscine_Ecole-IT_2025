@@ -53,7 +53,7 @@
   ],
   [
     "STRING",
-    "\"a est inf\u00c3\u00a9rieur \u00c3\u00a0 b\""
+    "\"a est inférieur à b\""
   ],
   [
     "RPAREN",
@@ -89,7 +89,7 @@
   ],
   [
     "STRING",
-    "\"a est sup\u00c3\u00a9rieur \u00c3\u00a0 b\""
+    "\"a est supérieur à b\""
   ],
   [
     "RPAREN",
@@ -125,7 +125,7 @@
   ],
   [
     "STRING",
-    "\"a est inf\u00c3\u00a9rieur ou \u00c3\u00a9gal \u00c3\u00a0 b\""
+    "\"a est inférieur ou égal à b\""
   ],
   [
     "RPAREN",
@@ -161,7 +161,7 @@
   ],
   [
     "STRING",
-    "\"a est sup\u00c3\u00a9rieur ou \u00c3\u00a9gal \u00c3\u00a0 b\""
+    "\"a est supérieur ou égal à b\""
   ],
   [
     "RPAREN",
@@ -197,7 +197,7 @@
   ],
   [
     "STRING",
-    "\"a est \u00c3\u00a9gal \u00c3\u00a0 b\""
+    "\"a est égal à b\""
   ],
   [
     "RPAREN",
@@ -233,7 +233,7 @@
   ],
   [
     "STRING",
-    "\"a est diff\u00c3\u00a9rent de b\""
+    "\"a est différent de b\""
   ],
   [
     "RPAREN",

@@ -18,8 +18,9 @@ def main():
         json_file = source_file.replace(".pisc", ".json")
         error_file = source_file.replace(".pisc", ".errors.json")
 
-        with open(source_file, "r") as f:
+        with open(source_file, "r", encoding="utf-8") as f:
             code = f.read()
+
 
         tokens = tokenize(code)
 
@@ -33,8 +34,8 @@ def main():
         else:
             # Valid program → write .json with tokens
             print(f"[OK] Generated golden file for {source_file}")
-            with open(json_file, "w") as f:
-                json.dump(tokens, f, indent=2)
+            with open(json_file, "w", encoding="utf-8") as f:
+                json.dump(tokens, f, indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
     main()
