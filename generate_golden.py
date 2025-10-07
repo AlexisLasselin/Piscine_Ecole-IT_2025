@@ -5,8 +5,10 @@ from lexer import lexer, lexer_errors
 
 def tokenize(code):
     lexer_errors.clear()
+    lexer.lineno = 1
     lexer.input(code)
     return [(tok.type, tok.value) for tok in lexer]
+
 
 def main():
     sample_files = glob.glob("tests/samples/*.pisc")
