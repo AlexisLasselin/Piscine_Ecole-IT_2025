@@ -20,16 +20,21 @@ class Environment:
     def set(self, name, value):
         self.vars[name] = value
 
+
 # -------------------------
 # Interpreter
 # -------------------------
 class Interpreter:
     def __init__(self):
         self.env = Environment()
+        self.output = []  # on stocke les résultats des print()
 
     def run(self, program: Program):
+        """Exécute un programme et retourne une liste des sorties (print)."""
+        self.output = []
         for stmt in program.statements:
             self.exec_stmt(stmt)
+        return self.output
 
     def exec_stmt(self, stmt):
         if isinstance(stmt, Assign):
@@ -38,7 +43,8 @@ class Interpreter:
 
         elif isinstance(stmt, Print):
             value = self.eval_expr(stmt.expr)
-            print(value)
+            self.output.append(value)  # stocker la sortie
+            print(value)               # conserver l’affichage console
 
         elif isinstance(stmt, If):
             cond = self.eval_expr(stmt.condition)
@@ -101,6 +107,7 @@ class Interpreter:
         else:
             raise RuntimeError(f"Unknown expression: {expr}")
 
+
 # -------------------------
 # Manual test (only if run directly)
 # -------------------------
@@ -111,22 +118,13 @@ if __name__ == "__main__":
     code = """
     a = 5
     b = 3
-    if a < b {
-        print("a < b")
-    } else {
-        print("a >= b")
-    }
-
-    while a < 10 {
-        a = a + 1
-        print(a)
-    }
-
-    for i in range(3) {
-        print(i)
-    }
+    a = a + b
+    print(a)
     """
 
     ast = parser.parse(code, lexer=lexer)
     interpreter = Interpreter()
-    interpreter.run(ast)
+    result = interpreter.run(ast)
+
+    print("\n=== Résultats collectés ===")
+    print(result)

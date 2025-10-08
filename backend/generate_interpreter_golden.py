@@ -2,58 +2,52 @@ import glob
 import json
 import pathlib
 import sys
-from io import StringIO
 
 from lexer import lexer, lexer_errors
 from parser import parser
 from interpreter import Interpreter
 
-def run_code(code: str):
-    """Parse + interprète le code et capture la sortie"""
-    lexer_errors.clear()
-    lexer.lineno = 1
 
-    ast = parser.parse(code, lexer=lexer)
-
-    if lexer_errors:
-        return None, lexer_errors
-
-    old_stdout = sys.stdout
-    sys.stdout = StringIO()
-    errors = []
-    try:
-        interpreter = Interpreter()
-        interpreter.run(ast)
-        output = sys.stdout.getvalue().splitlines()
-    except Exception as e:
-        errors = [str(e)]
-        output = None
-    finally:
-        sys.stdout = old_stdout
-
-    return output, errors
+def normalize_text(text: str) -> str:
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return text
 
 
 def write_json(path: pathlib.Path, data):
-    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8", newline="\n")
 
 
 def process_file(source_file: str):
     p = pathlib.Path(source_file)
-    code = p.read_text(encoding="utf-8")
+    code = p.read_text(encoding="utf-8", errors="replace")
+    code = normalize_text(code)
 
-    output, errors = run_code(code)
+    # Reset lexer state and errors BEFORE parsing
+    lexer_errors.clear()
+    lexer.lineno = 1
 
-    if errors:
-        err_path = p.with_suffix(".out.errors.json")
-        write_json(err_path, errors)
-        print(f"[ERROR] {source_file}: wrote {err_path.name}")
-        for e in errors:
-            print("   ", e)
+    try:
+        ast = parser.parse(code, lexer=lexer)
+    except Exception as e:
+        # Parser error
+        err_path = p.with_suffix(".run.errors.json")
+        write_json(err_path, [f"Parser error: {str(e)}"])
+        print(f"[ERROR] {source_file}: {e}")
         return False
 
-    out_path = p.with_suffix(".out.json")
-    write_json(out_path, output)
+    if lexer_errors:
+        # Lexer errors
+        err_path = p.with_suffix(".run.errors.json")
+        write_json(err_path, list(lexer_errors))
+        print(f"[ERROR] {source_file}: lexer errors")
+        return False
+
+    # Interpreter run
+    interp = Interpreter()
+    out = interp.run(ast)
+
+    out_path = p.with_suffix(".run.json")
+    write_json(out_path, out)
     print(f"[OK] Generated {out_path}")
     return True
 

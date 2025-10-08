@@ -1,5 +1,29 @@
 [
   [
+    "IDENTIFIER",
+    "a"
+  ],
+  [
+    "EQUALS",
+    "="
+  ],
+  [
+    "NUMBER",
+    "3"
+  ],
+  [
+    "IDENTIFIER",
+    "b"
+  ],
+  [
+    "EQUALS",
+    "="
+  ],
+  [
+    "NUMBER",
+    "3"
+  ],
+  [
     "IF",
     "if"
   ],
