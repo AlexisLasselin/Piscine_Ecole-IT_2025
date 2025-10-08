@@ -1,0 +1,260 @@
+{
+  "Program": {
+    "statements": [
+      {
+        "Assign": {
+          "name": "a",
+          "expr": {
+            "Number": {
+              "value": 3
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "b",
+          "expr": {
+            "Number": {
+              "value": 5
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "c",
+          "expr": {
+            "BinOp": {
+              "left": {
+                "Var": {
+                  "name": "a"
+                }
+              },
+              "op": "+",
+              "right": {
+                "BinOp": {
+                  "left": {
+                    "Var": {
+                      "name": "b"
+                    }
+                  },
+                  "op": "*",
+                  "right": {
+                    "Number": {
+                      "value": 2
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "c"
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "d",
+          "expr": {
+            "BinOp": {
+              "left": {
+                "BinOp": {
+                  "left": {
+                    "Var": {
+                      "name": "a"
+                    }
+                  },
+                  "op": "+",
+                  "right": {
+                    "Var": {
+                      "name": "b"
+                    }
+                  }
+                }
+              },
+              "op": "*",
+              "right": {
+                "Number": {
+                  "value": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "d"
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "e",
+          "expr": {
+            "BinOp": {
+              "left": {
+                "BinOp": {
+                  "left": {
+                    "Var": {
+                      "name": "b"
+                    }
+                  },
+                  "op": "*",
+                  "right": {
+                    "Number": {
+                      "value": 4
+                    }
+                  }
+                }
+              },
+              "op": "/",
+              "right": {
+                "Number": {
+                  "value": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "e"
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "f",
+          "expr": {
+            "BinOp": {
+              "left": {
+                "Number": {
+                  "value": 10
+                }
+              },
+              "op": "-",
+              "right": {
+                "BinOp": {
+                  "left": {
+                    "Var": {
+                      "name": "a"
+                    }
+                  },
+                  "op": "*",
+                  "right": {
+                    "Number": {
+                      "value": 2
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "f"
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "g",
+          "expr": {
+            "BinOp": {
+              "left": {
+                "Number": {
+                  "value": 10
+                }
+              },
+              "op": "+",
+              "right": {
+                "BinOp": {
+                  "left": {
+                    "Var": {
+                      "name": "b"
+                    }
+                  },
+                  "op": "/",
+                  "right": {
+                    "Number": {
+                      "value": 5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "g"
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "h",
+          "expr": {
+            "BinOp": {
+              "left": {
+                "BinOp": {
+                  "left": {
+                    "Number": {
+                      "value": 10
+                    }
+                  },
+                  "op": "+",
+                  "right": {
+                    "Var": {
+                      "name": "b"
+                    }
+                  }
+                }
+              },
+              "op": "/",
+              "right": {
+                "Number": {
+                  "value": 5
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "h"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
