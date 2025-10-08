@@ -17,8 +17,8 @@ function App() {
         method: "POST",
         body: formData,
       });
-      const data = await res.json();
-      setResult(data);
+      const text = await res.text();
+      setResult(text);
     } catch (err) {
       console.error(err);
       setResult({ errors: ["Impossible de contacter le backend"] });
@@ -55,10 +55,11 @@ function App() {
         <div className="mt-6 w-full max-w-2xl">
           <h2 className="text-xl font-semibold mb-2">Résultat :</h2>
           <pre className="bg-gray-900 text-green-400 p-4 rounded overflow-x-auto whitespace-pre-wrap text-sm">
-            {JSON.stringify(result, null, 2)}
+            {result}
           </pre>
         </div>
       )}
+
     </div>
   );
 }

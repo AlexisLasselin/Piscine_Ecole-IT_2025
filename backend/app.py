@@ -1,10 +1,11 @@
 from fastapi import FastAPI, UploadFile, Form
-from fastapi.responses import JSONResponse
+from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 
 from lexer import lexer, lexer_errors
-from parser import parser, ast_to_dict
+from parser import parser
+from interpreter import Interpreter
 
 app = FastAPI()
 
@@ -17,29 +18,40 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/health")
 async def health():
     return {"status": "ok"}
 
-@app.post("/parse")
+
+@app.post("/parse", response_class=PlainTextResponse)
 async def parse_code(file: Optional[UploadFile] = None, code: str = Form(None)):
     """
-    Parse le code soit depuis un fichier uploadé, soit depuis une string envoyée.
+    Parse et exécute le code, puis renvoie UNIQUEMENT la sortie des `print`.
     """
+    # Charger le code
     if file:
         content = await file.read()
         code = content.decode("utf-8")
     elif not code:
-        return JSONResponse(content={"error": "No code provided"}, status_code=400)
+        return PlainTextResponse("No code provided", status_code=400)
 
     # Reset lexer state
     lexer_errors.clear()
     lexer.lineno = 1
 
     try:
+        # Parser en AST
         ast = parser.parse(code, lexer=lexer)
         if lexer_errors:
-            return {"errors": lexer_errors}
-        return ast_to_dict(ast)
+            return "\n".join(lexer_errors)
+
+        # Exécuter avec l’interpréteur
+        interpreter = Interpreter()
+        output = interpreter.run(ast)
+
+        # Retourner la sortie concaténée
+        return "\n".join(map(str, output)) if output else ""
+
     except SyntaxError as e:
-        return {"errors": [str(e)]}
+        return f"Syntax error: {str(e)}"
