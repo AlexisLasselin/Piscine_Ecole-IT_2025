@@ -90,7 +90,10 @@ class Interpreter:
             if expr.op == '+': return left + right
             if expr.op == '-': return left - right
             if expr.op == '*': return left * right
-            if expr.op == '/': return left / right
+            if expr.op == '/':
+                if right == 0:
+                    raise RuntimeError("Division by zero")
+                return left / right
             if expr.op == '==': return left == right
             if expr.op == '!=': return left != right
             if expr.op == '<': return left < right

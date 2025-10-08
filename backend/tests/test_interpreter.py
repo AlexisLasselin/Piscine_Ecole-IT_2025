@@ -11,40 +11,52 @@ from lexer import lexer, lexer_errors
 from parser import parser
 from interpreter import Interpreter
 
-def run_interpreter(code: str):
-    """Helper to execute code and capture output."""
-    lexer_errors.clear()
-    lexer.lineno = 1
-    ast = parser.parse(code, lexer=lexer)
-    if lexer_errors:
-        raise SyntaxError(f"Lexer errors: {lexer_errors}")
+def run_code(source: str):
+    """Parse et exécute le code, capture sortie et erreurs."""
+    from io import StringIO
+    import contextlib
 
-    interpreter = Interpreter()
-    return interpreter.run(ast)
+    output = StringIO()
+    errors = []
+
+    try:
+        ast = parser.parse(source, lexer=lexer)
+        interpreter = Interpreter()
+        with contextlib.redirect_stdout(output):
+            interpreter.run(ast)
+    except RuntimeError as e:
+        errors.append(str(e))
+
+    return output.getvalue().splitlines(), errors
+
 
 @pytest.mark.parametrize("source_file", glob.glob("backend/tests/samples/*.pisc"))
 def test_interpreter_against_golden(source_file, request):
-    update_golden = request.config.update_golden
+    update_golden = getattr(request.config, "update_golden", False)
 
-    golden_file = source_file.replace(".pisc", ".run.json")
+    run_file = source_file.replace(".pisc", ".run.json")
+    err_file = source_file.replace(".pisc", ".run.errors.json")
 
     with open(source_file, "r", encoding="utf-8") as f:
         code = f.read()
 
-    try:
-        output = run_interpreter(code)
-    except SyntaxError as e:
-        output = {"errors": [str(e)]}
+    output, errors = run_code(code)
 
-    if update_golden:
-        with open(golden_file, "w", encoding="utf-8") as f:
-            json.dump(output, f, indent=2, ensure_ascii=False)
-        pytest.skip(f"[UPDATED] Interpreter golden for {source_file}")
+    if errors:
+        if update_golden:
+            with open(err_file, "w", encoding="utf-8") as f:
+                json.dump(errors, f, indent=2, ensure_ascii=False)
+            pytest.skip(f"[UPDATED] Errors golden for {source_file}")
+        else:
+            with open(err_file, "r", encoding="utf-8") as f:
+                expected_errors = json.load(f)
+            assert errors == expected_errors, f"Runtime error mismatch for {source_file}"
     else:
-        try:
-            with open(golden_file, "r", encoding="utf-8") as f:
+        if update_golden:
+            with open(run_file, "w", encoding="utf-8") as f:
+                json.dump(output, f, indent=2, ensure_ascii=False)
+            pytest.skip(f"[UPDATED] Run golden for {source_file}")
+        else:
+            with open(run_file, "r", encoding="utf-8") as f:
                 expected_output = json.load(f)
-        except FileNotFoundError:
-            pytest.skip(f"No golden run file for {source_file}")
-
-        assert output == expected_output, f"Interpreter output mismatch for {source_file}"
+            assert output == expected_output, f"Output mismatch for {source_file}"
