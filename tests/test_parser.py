@@ -1,14 +1,15 @@
+# tests/test_parser.py
 import glob
 import json
 import pytest
 from lexer import lexer, lexer_errors
 from parser import parser, ast_to_dict
 
-
 def parse_code(source):
     """Helper to parse code into an AST object."""
+    lexer_errors.clear()     # reset erreurs
+    lexer.lineno = 1         # reset numéros de lignes
     return parser.parse(source, lexer=lexer)
-
 
 @pytest.mark.parametrize("source_file", glob.glob("tests/samples/*.pisc"))
 def test_ast_against_golden(source_file, request):
@@ -20,8 +21,9 @@ def test_ast_against_golden(source_file, request):
     with open(source_file, "r", encoding="utf-8") as f:
         code = f.read()
 
-    # Reset lexer errors before parsing
+    # Reset lexer state before parsing
     lexer_errors.clear()
+    lexer.lineno = 1
 
     try:
         # Parse code
