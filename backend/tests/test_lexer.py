@@ -12,7 +12,7 @@ def tokenize(code):
     lexer.input(code)
     return [(tok.type, tok.value) for tok in lexer]
 
-@pytest.mark.parametrize("source_file", glob.glob("tests/samples/*.pisc"))
+@pytest.mark.parametrize("source_file", glob.glob("backend/tests/samples/*.pisc"))
 def test_lexer_against_golden(source_file, request):
     json_file = source_file.replace(".pisc", ".json")
     error_file = source_file.replace(".pisc", ".errors.json")

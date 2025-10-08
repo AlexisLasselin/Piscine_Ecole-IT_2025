@@ -11,7 +11,7 @@ def parse_code(source):
     lexer.lineno = 1         # reset numéros de lignes
     return parser.parse(source, lexer=lexer)
 
-@pytest.mark.parametrize("source_file", glob.glob("tests/samples/*.pisc"))
+@pytest.mark.parametrize("source_file", glob.glob("backend/tests/samples/*.pisc"))
 def test_ast_against_golden(source_file, request):
     update_golden = request.config.update_golden
 
