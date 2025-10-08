@@ -5,7 +5,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleUpload = async () => {
+  const handleExecute = async () => {
     if (!file) return alert("Choisis un fichier .pisc");
 
     setLoading(true);
@@ -13,7 +13,7 @@ function App() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/upload/", {
+      const res = await fetch("http://127.0.0.1:8000/parse", {
         method: "POST",
         body: formData,
       });
@@ -43,7 +43,7 @@ function App() {
 
       {/* Execute button */}
       <button
-        onClick={handleUpload}
+        onClick={handleExecute}
         disabled={loading}
         className="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 disabled:bg-gray-400"
       >
