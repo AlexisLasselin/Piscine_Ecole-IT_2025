@@ -1,0 +1,17 @@
+# Utilise une image Python légère
+FROM python:3.11-slim
+
+# Définit le répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Copie les fichiers Python et requirements
+COPY . /app
+
+# Installe les dépendances Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose le port Flask
+EXPOSE 5000
+
+# Démarre ton backend Flask
+CMD ["python", "main.py"]

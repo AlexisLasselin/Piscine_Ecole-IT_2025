@@ -1,0 +1,8 @@
+# Utilise une image web minimale
+FROM nginx:alpine
+
+# Copie les fichiers frontend dans le dossier web d’Nginx
+COPY . /usr/share/nginx/html
+
+# Expose le port 80 pour le frontend
+EXPOSE 80
