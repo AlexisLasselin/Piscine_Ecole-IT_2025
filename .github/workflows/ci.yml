@@ -39,10 +39,10 @@ jobs:
 
       # 5. Run pytest with JSON + log
       - name: Run pytest
-        working-directory: backend
         run: |
-          pytest -v --maxfail=5 --disable-warnings \
-            --json-report --json-report-file=report.json | tee pytest-results.log
+          pytest backend -v --maxfail=5 --disable-warnings \
+            --json-report --json-report-file=report.json | tee backend/pytest-results.log
+
 
       # 6. Publish summary (table + logs)
       - name: Publish pytest summary
