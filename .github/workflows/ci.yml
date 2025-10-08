@@ -27,25 +27,41 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # 3. Cache pip to speed up builds
-      - name: Cache pip
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      # 4. Install dependencies
+      # 3. Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest pytest-json-report -r backend/requirements.txt
 
-      # 5. Debug: list files (utile pour vérifier la structure)
+      # 4. Debug: list files
       - name: List files
         run: ls -R
 
-      # 6. Run pytest with logs and JUnit report
+      # 5. Run pytest with JSON + log
       - name: Run pytest
-        run: pytest -s --junitxml=pytest-report.xml
+        working-directory: backend
+        run: |
+          pytest -v --maxfail=5 --disable-warnings \
+            --json-report --json-report-file=report.json | tee pytest-results.log
+
+      # 6. Publish summary (table + logs)
+      - name: Publish pytest summary
+        if: always()
+        run: |
+          echo "## 🧪 Pytest Results (Python ${{ matrix.python-version }})" >> $GITHUB_STEP_SUMMARY
+
+          # Parse JSON report
+          PASSED=$(jq '.summary.passed' backend/report.json)
+          FAILED=$(jq '.summary.failed' backend/report.json)
+          SKIPPED=$(jq '.summary.skipped' backend/report.json)
+          TOTAL=$(jq '.summary.total' backend/report.json)
+
+          echo "| ✅ Passed | ❌ Failed | ⚠️ Skipped | 📊 Total |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-----------|------------|----------|" >> $GITHUB_STEP_SUMMARY
+          echo "| $PASSED | $FAILED | $SKIPPED | $TOTAL |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          echo "### 📋 Detailed Log" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          cat backend/pytest-results.log >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
