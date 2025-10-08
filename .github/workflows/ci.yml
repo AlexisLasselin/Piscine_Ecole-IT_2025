@@ -17,26 +17,22 @@ jobs:
         python-version: [ "3.12", "3.13" ]
 
     steps:
-      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Python
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install -r backend/requirements.txt
 
-      # 4. Debug: list files
-      - name: List files
-        run: ls -R
-
-      # 5. Run pytest
-      - name: Run pytest
-        run: pytest -v
+      - name: Run pytest and save summary
+        run: |
+          echo "## 🧪 Pytest Results (Python ${{ matrix.python-version }})" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          pytest -v >> $GITHUB_STEP_SUMMARY 2>&1
+          echo '```' >> $GITHUB_STEP_SUMMARY

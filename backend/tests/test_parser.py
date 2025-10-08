@@ -1,17 +1,23 @@
-# tests/test_parser.py
 import glob
 import json
 import pytest
+import os, sys
+
+# Ajouter le dossier backend/ au PYTHONPATH
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 from lexer import lexer, lexer_errors
 from parser import parser, ast_to_dict
 
+BASE_DIR = os.path.dirname(__file__)
+SAMPLES_DIR = os.path.join(BASE_DIR, "samples")
+
 def parse_code(source):
-    """Helper to parse code into an AST object."""
-    lexer_errors.clear()     # reset erreurs
-    lexer.lineno = 1         # reset numéros de lignes
+    lexer_errors.clear()
+    lexer.lineno = 1
     return parser.parse(source, lexer=lexer)
 
-@pytest.mark.parametrize("source_file", glob.glob("tests/samples/*.pisc"))
+@pytest.mark.parametrize("source_file", glob.glob(os.path.join(SAMPLES_DIR, "*.pisc")))
 def test_ast_against_golden(source_file, request):
     update_golden = request.config.update_golden
 
@@ -21,12 +27,10 @@ def test_ast_against_golden(source_file, request):
     with open(source_file, "r", encoding="utf-8") as f:
         code = f.read()
 
-    # Reset lexer state before parsing
     lexer_errors.clear()
     lexer.lineno = 1
 
     try:
-        # Parse code
         ast = parse_code(code)
 
         if lexer_errors:
@@ -40,7 +44,6 @@ def test_ast_against_golden(source_file, request):
                 assert lexer_errors == expected_errors, f"Lexer errors mismatch for {source_file}"
             return
 
-        # Convert AST to dict for stable comparison
         actual = ast_to_dict(ast)
 
         if update_golden:
