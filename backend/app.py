@@ -13,11 +13,15 @@ app = FastAPI()
 # 🔓 Autoriser le frontend React (Vite tourne sur http://localhost:5173)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:8080",   # accès depuis navigateur hôte
+        "http://ide:80"            # accès depuis le container frontend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # ✅ Route de test
 @app.get("/health")

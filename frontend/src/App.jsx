@@ -34,6 +34,8 @@ function App() {
     reader.readAsText(file);
   };
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const handleExecute = async () => {
     if (!code.trim()) return alert("Le code est vide");
 
@@ -48,14 +50,17 @@ function App() {
     setTimeout(() => setStars([]), 1500);
 
     setLoading(true);
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    
     try {
-      const res = await fetch("http://127.0.0.1:8000/parse-json", {
+      const res = await fetch(`${API_URL}/parse-json`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }),
       });
       const data = await res.json();
       setOutput(data.output || []);
+
       setErrors(data.errors || []);
     } catch (err) {
       console.error(err);

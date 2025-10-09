@@ -1,28 +1,24 @@
+version: "3.9"
 services:
-  # --- Backend : interpréteur FastAPI ---
+  # Backend
   interpreter:
     build:
-      context: ./backend                # On construit depuis backend/
-      dockerfile: Dockerfile_back       # Dockerfile est dans backend/
+      context: ./backend
+      dockerfile: Dockerfile_back
     container_name: lang_interpreter
-    working_dir: /app
-    volumes:
-      - ./backend:/app                  # Monte tout le code backend
     ports:
-      - "5000:5000"                     # FastAPI sera dispo sur http://localhost:5000
+      - "5000:5000"
     networks:
       - lang_net
 
-  # --- Frontend : IDE web (Nginx) ---
+  # Frontend
   ide:
     build:
-      context: ./frontend               # On construit depuis frontend/
-      dockerfile: Dockerfile_front      # Dockerfile est dans frontend/
+      context: ./frontend
+      dockerfile: Dockerfile_front
     container_name: web_ide
     ports:
-      - "8080:80"                       # Frontend dispo sur http://localhost:8080
-    volumes:
-      - ./frontend:/usr/share/nginx/html
+      - "8080:80"
     depends_on:
       - interpreter
     networks:
