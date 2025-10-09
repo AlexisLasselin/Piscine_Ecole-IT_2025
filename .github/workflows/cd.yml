@@ -1,0 +1,25 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main   # lance le déploiement uniquement sur main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Build l'image directement sur la VM
+      - name: Build Docker image
+        run: docker build -t piscine_interpreter:latest .
+
+      # Redéploie le conteneur
+      - name: Run container
+        run: |
+          docker stop piscine_interpreter || true
+          docker rm piscine_interpreter || true
+          docker run -d --name piscine_interpreter -p 8000:8000 piscine_interpreter:latest
