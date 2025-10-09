@@ -1,65 +1,105 @@
 import { useState } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { oneDark } from "@codemirror/theme-one-dark";
+
+function TerminalOutput({ lines }) {
+  return (
+    <div className="bg-black text-green-400 font-mono p-4 rounded w-full h-32 overflow-y-auto border border-green-700 mt-4">
+      {lines.length === 0 ? (
+        <div className="text-gray-500">Aucune sortie pour l’instant...</div>
+      ) : (
+        lines.map((line, index) => (
+          <div key={index} className="whitespace-pre-wrap">
+            <span className="text-green-600">{"> "}</span>{line}
+          </div>
+        ))
+      )}
+      <div className="blinking-cursor"></div>
+    </div>
+  );
+}
 
 function App() {
-  const [file, setFile] = useState(null);
-  const [result, setResult] = useState(null);
+  const [code, setCode] = useState("");
+  const [output, setOutput] = useState([]);
+  const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const handleFileImport = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setCode(e.target.result);
+    reader.readAsText(file);
+  };
+
   const handleExecute = async () => {
-    if (!file) return alert("Choisis un fichier .pisc");
+    if (!code.trim()) return alert("Le code est vide");
 
     setLoading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
-      const res = await fetch("http://127.0.0.1:8000/parse", {
+      const res = await fetch("http://127.0.0.1:8000/parse-json", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
       });
-      const text = await res.text();
-      setResult(text);
+      const data = await res.json();
+      setOutput(data.output || []);
+      setErrors(data.errors || []);
     } catch (err) {
       console.error(err);
-      setResult({ errors: ["Impossible de contacter le backend"] });
+      setErrors(["Impossible de contacter le backend"]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold text-blue-600 mb-6">
-        Analyseur Piscine 🏊‍♂️
-      </h1>
+    <div className="w-screen h-screen flex flex-col p-4 space-y-4 bg-[#1e1e1e] text-white">
+      {/* 📂 Import fichier */}
+      <div className="flex items-center gap-4">
+        <input
+          type="file"
+          accept=".pisc"
+          onChange={handleFileImport}
+          className="border p-2 rounded bg-white text-black shadow"
+        />
+        <button
+          onClick={handleExecute}
+          disabled={loading}
+        >
+          {loading ? "Exécution en cours..." : "Exécuter"}
+        </button>
+      </div>
 
-      {/* Upload input */}
-      <input
-        type="file"
-        accept=".pisc"
-        onChange={(e) => setFile(e.target.files[0])}
-        className="mb-4 border p-2 rounded bg-white shadow"
-      />
+      {/* ✍️ Éditeur */}
+      <div className="flex-grow rounded border border-gray-700 overflow-hidden">
+        <div style={{ height: "50vh", overflowY: "auto", backgroundColor: "#1e1e1e" }}>
+          <CodeMirror
+            value={code}
+            height="100%"
+            theme={oneDark}
+            onChange={(value) => setCode(value)}
+            className="w-full"
+          />
+        </div>
+      </div>
 
-      {/* Execute button */}
-      <button
-        onClick={handleExecute}
-        disabled={loading}
-        className="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 disabled:bg-gray-400"
-      >
-        {loading ? "Exécution en cours..." : "Exécuter"}
-      </button>
+      {/* 🖥️ Terminal */}
+      <div>
+        <h2 className="text-xl font-semibold text-green-400 mb-2">Terminal :</h2>
+        <TerminalOutput lines={output} />
+      </div>
 
-      {/* Result */}
-      {result && (
-        <div className="mt-6 w-full max-w-2xl">
-          <h2 className="text-xl font-semibold mb-2">Résultat :</h2>
-          <pre className="bg-gray-900 text-green-400 p-4 rounded overflow-x-auto whitespace-pre-wrap text-sm">
-            {result}
+      {/* ❌ Erreurs */}
+      {errors.length > 0 && (
+        <div>
+          <h2 className="text-xl font-semibold mb-2 text-red-600">Erreurs :</h2>
+          <pre className="bg-red-100 text-red-800 p-4 rounded whitespace-pre-wrap text-sm">
+            {errors.join("\n")}
           </pre>
         </div>
       )}
-
     </div>
   );
 }
