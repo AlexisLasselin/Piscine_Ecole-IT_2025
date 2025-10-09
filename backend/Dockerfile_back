@@ -1,21 +1,23 @@
-
 # Utilise une image Python légère
 FROM python:3.11-slim
 
-# Définit le répertoire de travail dans le conteneur
+# Répertoire de travail
 WORKDIR /app
 
-# Installer les dépendances système nécessaires (dont graphviz pour "dot")
+# Installer les dépendances système nécessaires (Graphviz pour 'dot')
 RUN apt-get update && apt-get install -y --no-install-recommends \
     graphviz \
     && rm -rf /var/lib/apt/lists/*
 
-# Copier le requirements du backend et installer les dépendances Python
+# Copier requirements.txt et installer les dépendances Python
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose le port Flask (backend API)
+# Copier tout le code backend (app.py, lexer.py, parser.py, interpreter.py, etc.)
+COPY . .
+
+# Exposer le port pour Uvicorn
 EXPOSE 5000
 
-# Commande de démarrage (main.py est dans backend/, monté par docker-compose)
-CMD ["python", "main.py"]
+# Lancer FastAPI avec Uvicorn
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]

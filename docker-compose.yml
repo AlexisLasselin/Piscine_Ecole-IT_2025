@@ -1,29 +1,28 @@
 services:
-  # --- Backend : interpréteur Python ---
+  # --- Backend : interpréteur FastAPI ---
   interpreter:
     build:
-      context: ./backend            # Racine du projet
-      dockerfile: Dockerfile_back
+      context: ./backend                # On construit depuis backend/
+      dockerfile: Dockerfile_back       # Dockerfile est dans backend/
     container_name: lang_interpreter
     working_dir: /app
     volumes:
-      - ./backend:/app          # Monte ton code backend dans /app
-    command: python main.py     # Lance ton interpréteur (ou API Flask si tu modifies main.py)
+      - ./backend:/app                  # Monte tout le code backend
     ports:
-      - "5000:5000"             # Expose Flask sur localhost:5000
+      - "5000:5000"                     # FastAPI sera dispo sur http://localhost:5000
     networks:
       - lang_net
 
-  # --- Frontend : IDE web avec Nginx ---
+  # --- Frontend : IDE web (Nginx) ---
   ide:
     build:
-      context: ./frontend              # Racine du projet
-      dockerfile: Dockerfile_front
+      context: ./frontend               # On construit depuis frontend/
+      dockerfile: Dockerfile_front      # Dockerfile est dans frontend/
     container_name: web_ide
     ports:
-      - "8080:80"               # Frontend dispo sur localhost:8080
+      - "8080:80"                       # Frontend dispo sur http://localhost:8080
     volumes:
-      - ./frontend:/usr/share/nginx/html  # Sert tes fichiers statiques
+      - ./frontend:/usr/share/nginx/html
     depends_on:
       - interpreter
     networks:

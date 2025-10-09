@@ -4,3 +4,7 @@ fastapi
 uvicorn
 flask 
 graphviz
+pydantic
+python-multipart
+
+
