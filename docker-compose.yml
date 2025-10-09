@@ -1,34 +1,31 @@
-version: "3.9"
-
 services:
   # --- Backend : interpréteur Python ---
   interpreter:
     build:
-      context: .
+      context: ./backend            # Racine du projet
       dockerfile: Dockerfile_back
     container_name: lang_interpreter
     working_dir: /app
     volumes:
-      - ./:/app              # Monte tout le code Python local dans /app
-    command: python main.py  # Lance ton interpréteur
-    tty: true
+      - ./backend:/app          # Monte ton code backend dans /app
+    command: python main.py     # Lance ton interpréteur (ou API Flask si tu modifies main.py)
     ports:
-      - "5000:5000"          # Accès API Flask depuis l’extérieur
+      - "5000:5000"             # Expose Flask sur localhost:5000
     networks:
       - lang_net
 
-  # --- Frontend : IDE web avec CodeMirror (Nginx) ---
+  # --- Frontend : IDE web avec Nginx ---
   ide:
     build:
-      context: .
+      context: ./frontend              # Racine du projet
       dockerfile: Dockerfile_front
     container_name: web_ide
     ports:
-      - "8080:80"            # Frontend dispo sur http://IP_VM:8080
+      - "8080:80"               # Frontend dispo sur localhost:8080
     volumes:
       - ./frontend:/usr/share/nginx/html  # Sert tes fichiers statiques
     depends_on:
-      - interpreter          # Lance le backend d'abord
+      - interpreter
     networks:
       - lang_net
 

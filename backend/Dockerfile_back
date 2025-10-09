@@ -1,0 +1,21 @@
+
+# Utilise une image Python légère
+FROM python:3.11-slim
+
+# Définit le répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Installer les dépendances système nécessaires (dont graphviz pour "dot")
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    graphviz \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copier le requirements du backend et installer les dépendances Python
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose le port Flask (backend API)
+EXPOSE 5000
+
+# Commande de démarrage (main.py est dans backend/, monté par docker-compose)
+CMD ["python", "main.py"]
