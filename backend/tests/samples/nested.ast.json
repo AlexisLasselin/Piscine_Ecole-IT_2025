@@ -1,0 +1,79 @@
+{
+  "Program": {
+    "statements": [
+      {
+        "Assign": {
+          "name": "a",
+          "expr": {
+            "Number": {
+              "value": 5
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "b",
+          "expr": {
+            "Number": {
+              "value": 5
+            }
+          }
+        }
+      },
+      {
+        "If": {
+          "condition": {
+            "BinOp": {
+              "left": {
+                "Var": {
+                  "name": "a"
+                }
+              },
+              "op": "==",
+              "right": {
+                "Var": {
+                  "name": "b"
+                }
+              }
+            }
+          },
+          "then_branch": [
+            {
+              "If": {
+                "condition": {
+                  "BinOp": {
+                    "left": {
+                      "Var": {
+                        "name": "a"
+                      }
+                    },
+                    "op": "!=",
+                    "right": {
+                      "Number": {
+                        "value": 0
+                      }
+                    }
+                  }
+                },
+                "then_branch": [
+                  {
+                    "Print": {
+                      "expr": {
+                        "String": {
+                          "value": "egal et non nul"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "else_branch": null
+              }
+            }
+          ],
+          "else_branch": null
+        }
+      }
+    ]
+  }
+}

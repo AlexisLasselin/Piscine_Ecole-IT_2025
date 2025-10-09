@@ -1,14 +1,15 @@
 import json
 import glob
 import pytest
-import sys, os
+import sys
+import os
 
-# Ajouter le dossier backend/ au PYTHONPATH pour importer lexer
+# Ensure the backend directory is in sys.path
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from lexer import lexer, lexer_errors
 
-# Base directory = dossier où est ce fichier
+# Base directory = directory of this file
 BASE_DIR = os.path.dirname(__file__)
 SAMPLES_DIR = os.path.join(BASE_DIR, "samples")
 

@@ -5,7 +5,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleUpload = async () => {
+  const handleExecute = async () => {
     if (!file) return alert("Choisis un fichier .pisc");
 
     setLoading(true);
@@ -13,12 +13,12 @@ function App() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/upload/", {
+      const res = await fetch("http://127.0.0.1:8000/parse", {
         method: "POST",
         body: formData,
       });
-      const data = await res.json();
-      setResult(data);
+      const text = await res.text();
+      setResult(text);
     } catch (err) {
       console.error(err);
       setResult({ errors: ["Impossible de contacter le backend"] });
@@ -43,7 +43,7 @@ function App() {
 
       {/* Execute button */}
       <button
-        onClick={handleUpload}
+        onClick={handleExecute}
         disabled={loading}
         className="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 disabled:bg-gray-400"
       >
@@ -55,10 +55,11 @@ function App() {
         <div className="mt-6 w-full max-w-2xl">
           <h2 className="text-xl font-semibold mb-2">Résultat :</h2>
           <pre className="bg-gray-900 text-green-400 p-4 rounded overflow-x-auto whitespace-pre-wrap text-sm">
-            {JSON.stringify(result, null, 2)}
+            {result}
           </pre>
         </div>
       )}
+
     </div>
   );
 }

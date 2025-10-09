@@ -2,6 +2,26 @@
   "Program": {
     "statements": [
       {
+        "Assign": {
+          "name": "a",
+          "expr": {
+            "Number": {
+              "value": 3
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "b",
+          "expr": {
+            "Number": {
+              "value": 3
+            }
+          }
+        }
+      },
+      {
         "If": {
           "condition": {
             "BinOp": {

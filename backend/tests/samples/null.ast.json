@@ -1,0 +1,23 @@
+{
+  "Program": {
+    "statements": [
+      {
+        "Assign": {
+          "name": "a",
+          "expr": {
+            "Null": {}
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "a"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

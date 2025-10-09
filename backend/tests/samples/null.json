@@ -1,0 +1,30 @@
+[
+  [
+    "IDENTIFIER",
+    "a"
+  ],
+  [
+    "EQUALS",
+    "="
+  ],
+  [
+    "NULL",
+    "null"
+  ],
+  [
+    "PRINT",
+    "print"
+  ],
+  [
+    "LPAREN",
+    "("
+  ],
+  [
+    "IDENTIFIER",
+    "a"
+  ],
+  [
+    "RPAREN",
+    ")"
+  ]
+]

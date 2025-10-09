@@ -1,0 +1,108 @@
+{
+  "Program": {
+    "statements": [
+      {
+        "Assign": {
+          "name": "a",
+          "expr": {
+            "Number": {
+              "value": 5
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "b",
+          "expr": {
+            "Number": {
+              "value": 10
+            }
+          }
+        }
+      },
+      {
+        "If": {
+          "condition": {
+            "BinOp": {
+              "left": {
+                "Var": {
+                  "name": "a"
+                }
+              },
+              "op": "<",
+              "right": {
+                "Var": {
+                  "name": "b"
+                }
+              }
+            }
+          },
+          "then_branch": [
+            {
+              "Print": {
+                "expr": {
+                  "String": {
+                    "value": "ok"
+                  }
+                }
+              }
+            }
+          ],
+          "else_branch": [
+            {
+              "Print": {
+                "expr": {
+                  "String": {
+                    "value": "fail"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "If": {
+          "condition": {
+            "BinOp": {
+              "left": {
+                "Var": {
+                  "name": "a"
+                }
+              },
+              "op": ">",
+              "right": {
+                "Var": {
+                  "name": "b"
+                }
+              }
+            }
+          },
+          "then_branch": [
+            {
+              "Print": {
+                "expr": {
+                  "String": {
+                    "value": "fail"
+                  }
+                }
+              }
+            }
+          ],
+          "else_branch": [
+            {
+              "Print": {
+                "expr": {
+                  "String": {
+                    "value": "ok"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

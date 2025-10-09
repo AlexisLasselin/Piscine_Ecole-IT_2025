@@ -1,0 +1,40 @@
+{
+  "Program": {
+    "statements": [
+      {
+        "Assign": {
+          "name": "a",
+          "expr": {
+            "Number": {
+              "value": 5
+            }
+          }
+        }
+      },
+      {
+        "Assign": {
+          "name": "b",
+          "expr": {
+            "UnaryOp": {
+              "op": "-",
+              "operand": {
+                "Var": {
+                  "name": "a"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Print": {
+          "expr": {
+            "Var": {
+              "name": "b"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
