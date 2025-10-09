@@ -4,13 +4,13 @@ import { oneDark } from "@codemirror/theme-one-dark";
 
 function TerminalOutput({ lines }) {
   return (
-    <div className="bg-black text-green-400 font-mono p-4 rounded w-full h-32 overflow-y-auto border border-green-700 mt-4">
+    <div className="terminal">
       {lines.length === 0 ? (
-        <div className="text-gray-500">Aucune sortie pour l’instant...</div>
+        <div style={{ color: "#888" }}>Aucune sortie pour l’instant...</div>
       ) : (
         lines.map((line, index) => (
-          <div key={index} className="whitespace-pre-wrap">
-            <span className="text-green-600">{"> "}</span>{line}
+          <div key={index}>
+            <span style={{ color: "#22c55e" }}>{"> "}</span>{line}
           </div>
         ))
       )}
@@ -24,6 +24,7 @@ function App() {
   const [output, setOutput] = useState([]);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [stars, setStars] = useState([]);
 
   const handleFileImport = (e) => {
     const file = e.target.files[0];
@@ -35,6 +36,16 @@ function App() {
 
   const handleExecute = async () => {
     if (!code.trim()) return alert("Le code est vide");
+
+    // 🌟 Génère des étoiles
+    const newStars = Array.from({ length: 20 }).map((_, i) => ({
+      id: Date.now() + i,
+      color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+      left: Math.random() * 140,
+      top: Math.random() * 40,
+    }));
+    setStars(newStars);
+    setTimeout(() => setStars([]), 1500);
 
     setLoading(true);
     try {
@@ -55,26 +66,64 @@ function App() {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col p-4 space-y-4 bg-[#1e1e1e] text-white">
-      {/* 📂 Import fichier */}
-      <div className="flex items-center gap-4">
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      width: "100vw",
+      padding: "1rem",
+      boxSizing: "border-box",
+      gap: "1rem",
+      backgroundColor: "#0f0f0f",
+      color: "white"
+    }}>
+      {/* 📂 Import fichier + Bouton Exécuter */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <input
           type="file"
           accept=".pisc"
           onChange={handleFileImport}
-          className="border p-2 rounded bg-white text-black shadow"
+          className="file-button"
         />
-        <button
-          onClick={handleExecute}
-          disabled={loading}
-        >
-          {loading ? "Exécution en cours..." : "Exécuter"}
-        </button>
+
+        <div style={{ position: "relative" }}>
+          {/* 🌟 Étoiles animées */}
+          <div className="star-container">
+            {stars.map((s) => (
+              <div
+                key={s.id}
+                className="star"
+                style={{
+                  color: s.color,
+                  left: `${s.left}px`,
+                  top: `${s.top}px`,
+                }}
+              >
+                ★
+              </div>
+            ))}
+          </div>
+
+          {/* 🚀 Bouton Exécuter */}
+          <button
+            onClick={handleExecute}
+            disabled={loading}
+            className="execute-button"
+          >
+            🚀 {loading ? "Exécution..." : "Exécuter"}
+          </button>
+        </div>
       </div>
 
-      {/* ✍️ Éditeur */}
-      <div className="flex-grow rounded border border-gray-700 overflow-hidden">
-        <div style={{ height: "50vh", overflowY: "auto", backgroundColor: "#1e1e1e" }}>
+      {/* ✍️ Éditeur CodeMirror */}
+      <div style={{
+        flexGrow: 1,
+        borderRadius: "14px",
+        border: "1px solid #6366f1",
+        overflow: "hidden",
+        boxShadow: "0 0 10px #6366f1"
+      }}>
+        <div style={{ height: "100%", overflowY: "auto", backgroundColor: "#0f0f0f" }}>
           <CodeMirror
             value={code}
             height="100%"
@@ -86,18 +135,19 @@ function App() {
       </div>
 
       {/* 🖥️ Terminal */}
-      <div>
-        <h2 className="text-xl font-semibold text-green-400 mb-2">Terminal :</h2>
-        <TerminalOutput lines={output} />
-      </div>
+      <TerminalOutput lines={output} />
 
       {/* ❌ Erreurs */}
       {errors.length > 0 && (
-        <div>
-          <h2 className="text-xl font-semibold mb-2 text-red-600">Erreurs :</h2>
-          <pre className="bg-red-100 text-red-800 p-4 rounded whitespace-pre-wrap text-sm">
-            {errors.join("\n")}
-          </pre>
+        <div style={{
+          backgroundColor: "#fee2e2",
+          color: "#b91c1c",
+          padding: "1rem",
+          borderRadius: "14px",
+          fontSize: "0.9rem",
+          whiteSpace: "pre-wrap"
+        }}>
+          {errors.join("\n")}
         </div>
       )}
     </div>
