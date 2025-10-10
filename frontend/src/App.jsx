@@ -23,7 +23,7 @@ function TerminalOutput({ lines }) {
 }
 
 function App() {
-  // 👉 Code pré-rempli ou code sauvegardé
+  // lecture du cache (localStorage) ou valeur par défaut
   const savedCode = localStorage.getItem("editorCode") || `print("Hello World")`;
   const [code, setCode] = useState(savedCode);
 
@@ -32,10 +32,13 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [stars, setStars] = useState([]);
   const [fileName, setFileName] = useState("");
+  const [theme, setTheme] = useState("dark");
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
   const handleCodeChange = (value) => {
     setCode(value);
-    localStorage.setItem("editorCode", value); // 🔥 sauvegarde automatique
+    localStorage.setItem("editorCode", value);
   };
 
   const handleFileImport = (e) => {
@@ -43,7 +46,7 @@ function App() {
     if (!file) return;
     setFileName(file.name);
     const reader = new FileReader();
-    reader.onload = (e) => handleCodeChange(e.target.result);
+    reader.onload = (ev) => handleCodeChange(ev.target.result);
     reader.readAsText(file);
   };
 
@@ -66,14 +69,16 @@ function App() {
   const handleExecute = async () => {
     if (!code.trim()) return alert("Le code est vide");
 
-    const newStars = Array.from({ length: 20 }).map((_, i) => ({
+    const newStars = Array.from({ length: 30 }).map((_, i) => ({
       id: Date.now() + i,
       color: `hsl(${Math.random() * 360}, 100%, 70%)`,
-      left: Math.random() * 140,
-      top: Math.random() * 40,
+      left: 10 + Math.random() * 80,
+      top: -10 + Math.random() * 40,
+      size: 10 + Math.random() * 12,
+      rotate: Math.random() * 360,
     }));
     setStars(newStars);
-    setTimeout(() => setStars([]), 1500);
+    setTimeout(() => setStars([]), 1200);
 
     setOutput([]);
     setErrors([]);
@@ -97,23 +102,22 @@ function App() {
     }
   };
 
-  // 👉 Auto-exécution au lancement
   useEffect(() => {
+    // Exécute le code au premier rendu (Hello World ou code sauvegardé)
     handleExecute();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="app-container">
-      {/* Toolbar */}
+    <div className={theme === "dark" ? "app-dark app-container" : "app-light app-container"}>
+      {/* Toolbar (gauche: actions) */}
       <div className="toolbar">
         <div className="toolbar-left">
-          <input
-            type="file"
-            accept=".pisc"
-            onChange={handleFileImport}
-            className="file-button"
-          />
+          <button onClick={toggleTheme} className="theme-toggle">
+            {theme === "dark" ? "☀️ Mode clair" : "🌙 Mode sombre"}
+          </button>
+
+          <input type="file" accept=".pisc" onChange={handleFileImport} className="file-button" />
           <button onClick={handleExport} className="export-button">💾 Exporter</button>
           <a
             href="https://github.com/AlexisLasselin/Piscine_Ecole-IT_2025/blob/main/docs/grammar.md"
@@ -124,59 +128,57 @@ function App() {
             📘 Grammaire
           </a>
         </div>
-
-        <div className="toolbar-right">
-          <div className="star-container">
-            {stars.map((s) => (
-              <div
-                key={s.id}
-                className="star"
-                style={{
-                  color: s.color,
-                  left: `${s.left}px`,
-                  top: `${s.top}px`,
-                }}
-              >
-                ★
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={handleExecute}
-            disabled={loading}
-            className="execute-button"
-          >
-            🚀 {loading ? "Exécution..." : "Exécuter"}
-          </button>
-        </div>
+        {/* on garde l'espace droit si besoin, mais on ne met plus l'exécuter ici */}
+        <div className="toolbar-right" />
       </div>
 
       {fileName && (
-        <div className="file-name">
+        <div className="file-info">
           📄 Fichier sélectionné : <strong>{fileName}</strong>
         </div>
       )}
 
-      {/* Code editor */}
+      {/* Éditeur (Execute placé en overlay bottom-right sur grand écrans) */}
       <div className="editor-container">
         <CodeMirror
           value={code}
           height="100%"
           theme={oneDark}
-          onChange={(value) => handleCodeChange(value)}
+          onChange={handleCodeChange}
           className="code-editor"
         />
+
+        {/* Footer/overlay dans l'éditeur : particules + bouton Exécuter */}
+        <div className="editor-footer" aria-hidden={loading ? "true" : "false"}>
+          <div className="star-area" aria-hidden>
+            {stars.map((s) => (
+              <div
+                key={s.id}
+                className="particle"
+                style={{
+                  color: s.color,
+                  left: `${s.left}%`,
+                  top: `${s.top}%`,
+                  fontSize: `${s.size}px`,
+                  transform: `rotate(${s.rotate}deg)`,
+                }}
+              >
+                ✦
+              </div>
+            ))}
+          </div>
+
+          <button onClick={handleExecute} disabled={loading} className="execute-button">
+            🚀 {loading ? "Exécution..." : "Exécuter"}
+          </button>
+        </div>
       </div>
 
       {/* Terminal */}
       <TerminalOutput lines={output} />
 
       {/* Errors */}
-      {errors.length > 0 && (
-        <div className="error-box">
-          {errors.join("\n")}
-        </div>
-      )}
+      {errors.length > 0 && <div className="error-box">{errors.join("\n")}</div>}
     </div>
   );
 }
