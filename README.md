@@ -1,7 +1,3 @@
-Parfait 💡, je vais te rédiger un **README complet et structuré** qui explique ton projet, comment lancer en local et en prod, et le rôle de chaque partie (frontend / backend / CI-CD). Tu pourras le mettre directement à la racine de ton repo GitHub.
-
----
-
 # 🐳 Projet : Lang Interpreter IDE (Frontend + Backend en Docker)
 
 ## 📌 Description
