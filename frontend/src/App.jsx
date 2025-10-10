@@ -5,16 +5,18 @@ import { oneDark } from "@codemirror/theme-one-dark";
 function TerminalOutput({ lines }) {
   return (
     <div className="terminal">
-      {lines.length === 0 ? (
-        <div style={{ color: "#888" }}>Aucune sortie pour l’instant...</div>
-      ) : (
-        lines.map((line, index) => (
-          <div key={index}>
-            <span style={{ color: "#22c55e" }}>{"> "}</span>{line}
-          </div>
-        ))
-      )}
-      <div className="blinking-cursor"></div>
+      <div className="terminal-scroll">
+        {lines.length === 0 ? (
+          <div style={{ color: "#888" }}>Aucune sortie pour l’instant...</div>
+        ) : (
+          lines.map((line, index) => (
+            <div key={index}>
+              <span style={{ color: "#22c55e" }}>{"> "}</span>{line}
+            </div>
+          ))
+        )}
+        <div className="blinking-cursor"></div>
+      </div>
     </div>
   );
 }
@@ -25,21 +27,20 @@ function App() {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [stars, setStars] = useState([]);
+  const [fileName, setFileName] = useState("");
 
   const handleFileImport = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    setFileName(file.name);
     const reader = new FileReader();
     reader.onload = (e) => setCode(e.target.result);
     reader.readAsText(file);
   };
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
   const handleExecute = async () => {
     if (!code.trim()) return alert("Le code est vide");
 
-    // 🌟 Génère des étoiles
     const newStars = Array.from({ length: 20 }).map((_, i) => ({
       id: Date.now() + i,
       color: `hsl(${Math.random() * 360}, 100%, 70%)`,
@@ -49,6 +50,8 @@ function App() {
     setStars(newStars);
     setTimeout(() => setStars([]), 1500);
 
+    setOutput([]);
+    setErrors([]);
     setLoading(true);
 
     try {
@@ -58,10 +61,8 @@ function App() {
         body: JSON.stringify({ code }),
       });
 
-
       const data = await res.json();
       setOutput(data.output || []);
-
       setErrors(data.errors || []);
     } catch (err) {
       console.error(err);
@@ -76,50 +77,73 @@ function App() {
       display: "flex",
       flexDirection: "column",
       height: "100vh",
-      width: "100vw",
+      width: "100%",
+      maxWidth: "1000px",
+      margin: "0 auto",
       padding: "1rem",
       boxSizing: "border-box",
       gap: "1rem",
       backgroundColor: "#0f0f0f",
       color: "white"
     }}>
-      {/* 📂 Import fichier + Bouton Exécuter */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <input
-          type="file"
-          accept=".pisc"
-          onChange={handleFileImport}
-          className="file-button"
-        />
+      {/* 📂 Import fichier + Bouton Grammaire + Exécuter */}
+      <div style={{
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  flexWrap: "wrap",
+  gap: "1rem"
+}}>
+  <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+    <input
+      type="file"
+      accept=".pisc"
+      onChange={handleFileImport}
+      className="file-button"
+    />
 
-        <div style={{ position: "relative" }}>
-          {/* 🌟 Étoiles animées */}
-          <div className="star-container">
-            {stars.map((s) => (
-              <div
-                key={s.id}
-                className="star"
-                style={{
-                  color: s.color,
-                  left: `${s.left}px`,
-                  top: `${s.top}px`,
-                }}
-              >
-                ★
-              </div>
-            ))}
-          </div>
+    <a
+      href="https://github.com/AlexisLasselin/Piscine_Ecole-IT_2025/blob/main/docs/grammar.md"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="doc-button"
+    >
+      📘 Grammaire
+    </a>
+  </div>
 
-          {/* 🚀 Bouton Exécuter */}
-          <button
-            onClick={handleExecute}
-            disabled={loading}
-            className="execute-button"
-          >
-            🚀 {loading ? "Exécution..." : "Exécuter"}
-          </button>
+  <div style={{ position: "relative" }}>
+    <div className="star-container">
+      {stars.map((s) => (
+        <div
+          key={s.id}
+          className="star"
+          style={{
+            color: s.color,
+            left: `${s.left}px`,
+            top: `${s.top}px`,
+          }}
+        >
+          ★
         </div>
-      </div>
+      ))}
+    </div>
+
+    <button
+      onClick={handleExecute}
+      disabled={loading}
+      className="execute-button"
+    >
+      🚀 {loading ? "Exécution..." : "Exécuter"}
+    </button>
+  </div>
+</div>
+
+      {fileName && (
+        <div style={{ color: "#aaa", fontSize: "0.9rem" }}>
+          📄 Fichier sélectionné : <strong>{fileName}</strong>
+        </div>
+      )}
 
       {/* ✍️ Éditeur CodeMirror */}
       <div style={{

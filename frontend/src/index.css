@@ -114,14 +114,35 @@ body, html, #root {
 
 /* 🖥️ Terminal */
 .terminal {
+  max-height: 25vh;
+  min-height: 120px;
+  overflow: hidden;
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid #22c55e;
   border-radius: 14px;
-  padding: 1rem;
+  padding: 0;
   font-family: 'Fira Code', monospace;
   color: #22c55e;
   backdrop-filter: blur(6px);
   box-shadow: inset 0 0 12px #22c55e33;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-scroll {
+  overflow-y: auto;
+  padding: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e transparent;
+}
+
+.terminal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background-color: #22c55e;
+  border-radius: 3px;
 }
 
 /* ✍️ Curseur clignotant */
@@ -140,3 +161,49 @@ body, html, #root {
   }
 }
  
+@media screen and (max-width: 768px) {
+  .execute-button, .file-button, .reset-button {
+    font-size: 0.9em;
+    padding: 0.6em 1em;
+  }
+
+  .terminal {
+    font-size: 0.85rem;
+    padding: 0.8rem;
+  }
+
+  .star {
+    font-size: 18px;
+  }
+}
+.doc-button {
+  padding: 0.7em 1.4em;
+  border-radius: 14px;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border: 1px solid #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+.doc-button:hover {
+  background: rgba(59, 130, 246, 0.2);
+  color: white;
+  box-shadow: 0 0 12px #3b82f6;
+}
+.doc-button {
+  font-size: 0.85em;
+  padding: 0.6em 1em;
+  width: 100%;
+}
+
+.terminal {
+  max-height: 30vh;
+  min-height: 100px;
+}
+
+.terminal-scroll {
+  padding: 0.8rem;
+  font-size: 0.85rem;
+}
