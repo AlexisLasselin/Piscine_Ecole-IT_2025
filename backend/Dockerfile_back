@@ -1,18 +1,26 @@
-# Étape 1 : Base Python légère
-FROM python:3.11-alpine AS base
-
-# Travailler dans /app
+# Étape 1 : builder avec outils de compilation
+FROM python:3.11-alpine AS builder
 WORKDIR /app
 
-# Installer dépendances système minimales (si certaines libs C en ont besoin)
-RUN apk add --no-cache gcc musl-dev libffi-dev
+# Installer outils nécessaires pour compiler certaines libs
+RUN apk add --no-cache gcc musl-dev libffi-dev make
 
-# Copier requirements et installer uniquement le nécessaire
+# Copier requirements et installer les dépendances dans un dossier temporaire
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
-# Étape 2 : Copier seulement les fichiers utiles
+# Étape 2 : image finale ultra-légère
+FROM python:3.11-alpine
+WORKDIR /app
+
+# Copier uniquement les dépendances déjà compilées
+COPY --from=builder /install /usr/local
+
+# Copier seulement les fichiers nécessaires
 COPY app.py lexer.py parser.py interpreter.py ./
 
-# Lancer uvicorn
+# Exposer le port backend
+EXPOSE 5000
+
+# Commande de lancement
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
