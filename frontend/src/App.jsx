@@ -23,20 +23,26 @@ function TerminalOutput({ lines }) {
 }
 
 function App() {
-  // 👉 Code pré-rempli
-  const [code, setCode] = useState(`print("Hello World")`);
+  // 👉 Code pré-rempli ou code sauvegardé
+  const savedCode = localStorage.getItem("editorCode") || `print("Hello World")`;
+  const [code, setCode] = useState(savedCode);
   const [output, setOutput] = useState([]);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [stars, setStars] = useState([]);
   const [fileName, setFileName] = useState("");
 
+  const handleCodeChange = (value) => {
+    setCode(value);
+    localStorage.setItem("editorCode", value); // 🔥 sauvegarde automatique
+  };
+
   const handleFileImport = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setFileName(file.name);
     const reader = new FileReader();
-    reader.onload = (e) => setCode(e.target.result);
+    reader.onload = (e) => handleCodeChange(e.target.result);
     reader.readAsText(file);
   };
 
@@ -51,7 +57,7 @@ function App() {
 
     const link = document.createElement("a");
     link.href = url;
-    link.download = fileName || "code.pisc";
+    link.download = fileName || "code.pisc"; // si pas de nom, on met "code.pisc"
     document.body.appendChild(link);
     link.click();
 
@@ -93,7 +99,7 @@ function App() {
     }
   };
 
-  // 👉 Exécution automatique au lancement
+  // 👉 Auto-exécution au lancement (Hello World ou code sauvegardé)
   useEffect(() => {
     handleExecute();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,7 +121,7 @@ function App() {
         color: "white",
       }}
     >
-      {/* 📂 Import fichier + Export + Bouton Grammaire + Exécuter */}
+      {/* 📂 Import fichier + Bouton Export + Grammaire + Exécuter */}
       <div
         style={{
           display: "flex",
@@ -201,7 +207,7 @@ function App() {
             value={code}
             height="100%"
             theme={oneDark}
-            onChange={(value) => setCode(value)}
+            onChange={(value) => handleCodeChange(value)}
             className="w-full"
           />
         </div>
