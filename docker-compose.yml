@@ -1,24 +1,25 @@
 version: "3.9"
+
 services:
-  # Backend
+  # Backend (FastAPI)
   interpreter:
     build:
       context: ./backend
       dockerfile: Dockerfile_back
     container_name: lang_interpreter
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"  # exposé uniquement aux autres services du réseau
     networks:
       - lang_net
 
-  # Frontend
+  # Frontend (React + Nginx)
   ide:
     build:
       context: ./frontend
       dockerfile: Dockerfile_front
     container_name: web_ide
     ports:
-      - "8080:80"
+      - "80:80"  # ton site accessible directement sur http://IP_VM/
     depends_on:
       - interpreter
     networks:

@@ -50,14 +50,14 @@ function App() {
     setTimeout(() => setStars([]), 1500);
 
     setLoading(true);
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-    
+
     try {
-      const res = await fetch(`${API_URL}/parse-json`, {
+      const res = await fetch("http://interpreter:5000/parse-json", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }),
       });
+
       const data = await res.json();
       setOutput(data.output || []);
 
