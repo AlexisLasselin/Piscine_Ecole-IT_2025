@@ -1,19 +1,41 @@
-name: CD
+name: CI
 
 on:
   push:
     branches:
       - main
+      - code
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.12", "3.13" ]
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy with Docker Compose
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
         run: |
-          docker-compose down
-          docker-compose up -d --build
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          # Installe pytest explicitement au cas où
+          pip install pytest
+
+      - name: Run pytest and save summary
+        run: |
+          echo "## 🧪 Pytest Results (Python ${{ matrix.python-version }})" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          # Lance pytest depuis la racine pour que pytest.ini soit détecté
+          pytest >> $GITHUB_STEP_SUMMARY 2>&1
+          echo '```' >> $GITHUB_STEP_SUMMARY
