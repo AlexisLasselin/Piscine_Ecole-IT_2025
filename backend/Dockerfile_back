@@ -1,19 +1,25 @@
-# Étape 1 : image Python légère
-FROM python:3.11-slim AS base
+# Étape 1 : build des dépendances (avec gcc)
+FROM python:3.11-slim AS builder
 
 WORKDIR /app
 
-# Installer uniquement pip + dépendances système minimales
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
+# Installer outils de build uniquement ici
+RUN apt-get update && apt-get install -y --no-install-recommends gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Étape 2 : installer dépendances
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
-# Étape 3 : copier uniquement les fichiers utiles
+# Étape 2 : image finale, super légère
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copier seulement les deps installées depuis l'étape builder
+COPY --from=builder /install /usr/local
+
+# Copier uniquement les fichiers utiles
 COPY app.py lexer.py parser.py interpreter.py ./
 
-# Étape 4 : lancer le serveur
+EXPOSE 5000
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
