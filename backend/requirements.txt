@@ -1,10 +1,5 @@
-ply
-pytest
 fastapi
 uvicorn
-flask 
-graphviz
 pydantic
+ply
 python-multipart
-
-
