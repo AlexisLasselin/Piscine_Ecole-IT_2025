@@ -1,17 +1,34 @@
-FROM python:3.11-slim
+# Étape 1 : Build des dépendances (si besoin de compilation)
+FROM python:3.11-alpine AS builder
 
 WORKDIR /app
 
-# Installer juste les certificats pour HTTPS
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+# Installer outils de build (nécessaire pour certaines libs Python comme pydantic, uvicorn, etc.)
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    libffi-dev \
+    make \
+    build-base
 
+# Copier uniquement requirements.txt pour tirer parti du cache Docker
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app.py lexer.py parser.py interpreter.py ./
+# Installer les dépendances dans un dossier temporaire
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
-EXPOSE 5000
+
+# Étape 2 : Image finale ultra-minimale
+FROM python:3.11-alpine
+
+WORKDIR /app
+
+# Copier les dépendances installées depuis builder
+COPY --from=builder /install /usr/local
+
+# Copier seulement les fichiers essentiels
+COPY app/ ./app/
+COPY lexer.py parser.py interpreter.py ./
+
+# Démarrer avec Uvicorn
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
