@@ -1,25 +1,18 @@
-# Étape 1 : build des dépendances (avec gcc)
-FROM python:3.11-slim AS builder
+# Étape 1 : Base Python légère
+FROM python:3.11-alpine AS base
 
+# Travailler dans /app
 WORKDIR /app
 
-# Installer outils de build uniquement ici
-RUN apt-get update && apt-get install -y --no-install-recommends gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Installer dépendances système minimales (si certaines libs C en ont besoin)
+RUN apk add --no-cache gcc musl-dev libffi-dev
 
+# Copier requirements et installer uniquement le nécessaire
 COPY requirements.txt .
-RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Étape 2 : image finale, super légère
-FROM python:3.11-slim
-
-WORKDIR /app
-
-# Copier seulement les deps installées depuis l'étape builder
-COPY --from=builder /install /usr/local
-
-# Copier uniquement les fichiers utiles
+# Étape 2 : Copier seulement les fichiers utiles
 COPY app.py lexer.py parser.py interpreter.py ./
 
-EXPOSE 5000
+# Lancer uvicorn
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
