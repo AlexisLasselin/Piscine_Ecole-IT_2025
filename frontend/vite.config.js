@@ -1,17 +1,20 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import compression from "vite-plugin-compression";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [
-    react(),
-    compression({ algorithm: "brotliCompress" }), // Génère fichiers .br
-  ],
+  plugins: [react()],
   server: {
-    port: 5173,
+    port: 5173
   },
   build: {
     sourcemap: false,
-    minify: "terser", // Minification agressive
+    minify: "esbuild", // esbuild est par défaut, donc tu peux même supprimer cette ligne
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+        },
+      },
+    },
   },
-});
+})
