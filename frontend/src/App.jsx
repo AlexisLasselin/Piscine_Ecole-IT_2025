@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { oneDark } from "@codemirror/theme-one-dark";
 
@@ -11,7 +11,8 @@ function TerminalOutput({ lines }) {
         ) : (
           lines.map((line, index) => (
             <div key={index}>
-              <span style={{ color: "#22c55e" }}>{"> "}</span>{line}
+              <span style={{ color: "#22c55e" }}>{"> "}</span>
+              {line}
             </div>
           ))
         )}
@@ -22,7 +23,8 @@ function TerminalOutput({ lines }) {
 }
 
 function App() {
-  const [code, setCode] = useState("");
+  // 👉 Code pré-rempli
+  const [code, setCode] = useState(`print("Hello World")`);
   const [output, setOutput] = useState([]);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -36,6 +38,25 @@ function App() {
     const reader = new FileReader();
     reader.onload = (e) => setCode(e.target.result);
     reader.readAsText(file);
+  };
+
+  const handleExport = () => {
+    if (!code.trim()) {
+      alert("Aucun code à exporter");
+      return;
+    }
+
+    const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName || "code.pisc";
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const handleExecute = async () => {
@@ -72,72 +93,86 @@ function App() {
     }
   };
 
+  // 👉 Exécution automatique au lancement
+  useEffect(() => {
+    handleExecute();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      height: "100vh",
-      width: "100%",
-      maxWidth: "1000px",
-      margin: "0 auto",
-      padding: "1rem",
-      boxSizing: "border-box",
-      gap: "1rem",
-      backgroundColor: "#0f0f0f",
-      color: "white"
-    }}>
-      {/* 📂 Import fichier + Bouton Grammaire + Exécuter */}
-      <div style={{
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  flexWrap: "wrap",
-  gap: "1rem"
-}}>
-  <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-    <input
-      type="file"
-      accept=".pisc"
-      onChange={handleFileImport}
-      className="file-button"
-    />
-
-    <a
-      href="https://github.com/AlexisLasselin/Piscine_Ecole-IT_2025/blob/main/docs/grammar.md"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="doc-button"
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        width: "100%",
+        maxWidth: "1000px",
+        margin: "0 auto",
+        padding: "1rem",
+        boxSizing: "border-box",
+        gap: "1rem",
+        backgroundColor: "#0f0f0f",
+        color: "white",
+      }}
     >
-      📘 Grammaire
-    </a>
-  </div>
+      {/* 📂 Import fichier + Export + Bouton Grammaire + Exécuter */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "1rem",
+        }}
+      >
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          <input
+            type="file"
+            accept=".pisc"
+            onChange={handleFileImport}
+            className="file-button"
+          />
 
-  <div style={{ position: "relative" }}>
-    <div className="star-container">
-      {stars.map((s) => (
-        <div
-          key={s.id}
-          className="star"
-          style={{
-            color: s.color,
-            left: `${s.left}px`,
-            top: `${s.top}px`,
-          }}
-        >
-          ★
+          <button onClick={handleExport} className="export-button">
+            💾 Exporter
+          </button>
+
+          <a
+            href="https://github.com/AlexisLasselin/Piscine_Ecole-IT_2025/blob/main/docs/grammar.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="doc-button"
+          >
+            📘 Grammaire
+          </a>
         </div>
-      ))}
-    </div>
 
-    <button
-      onClick={handleExecute}
-      disabled={loading}
-      className="execute-button"
-    >
-      🚀 {loading ? "Exécution..." : "Exécuter"}
-    </button>
-  </div>
-</div>
+        <div style={{ position: "relative" }}>
+          <div className="star-container">
+            {stars.map((s) => (
+              <div
+                key={s.id}
+                className="star"
+                style={{
+                  color: s.color,
+                  left: `${s.left}px`,
+                  top: `${s.top}px`,
+                }}
+              >
+                ★
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={handleExecute}
+            disabled={loading}
+            className="execute-button"
+          >
+            🚀 {loading ? "Exécution..." : "Exécuter"}
+          </button>
+        </div>
+      </div>
 
       {fileName && (
         <div style={{ color: "#aaa", fontSize: "0.9rem" }}>
@@ -146,14 +181,22 @@ function App() {
       )}
 
       {/* ✍️ Éditeur CodeMirror */}
-      <div style={{
-        flexGrow: 1,
-        borderRadius: "14px",
-        border: "1px solid #6366f1",
-        overflow: "hidden",
-        boxShadow: "0 0 10px #6366f1"
-      }}>
-        <div style={{ height: "100%", overflowY: "auto", backgroundColor: "#0f0f0f" }}>
+      <div
+        style={{
+          flexGrow: 1,
+          borderRadius: "14px",
+          border: "1px solid #6366f1",
+          overflow: "hidden",
+          boxShadow: "0 0 10px #6366f1",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            overflowY: "auto",
+            backgroundColor: "#0f0f0f",
+          }}
+        >
           <CodeMirror
             value={code}
             height="100%"
@@ -169,14 +212,16 @@ function App() {
 
       {/* ❌ Erreurs */}
       {errors.length > 0 && (
-        <div style={{
-          backgroundColor: "#fee2e2",
-          color: "#b91c1c",
-          padding: "1rem",
-          borderRadius: "14px",
-          fontSize: "0.9rem",
-          whiteSpace: "pre-wrap"
-        }}>
+        <div
+          style={{
+            backgroundColor: "#fee2e2",
+            color: "#b91c1c",
+            padding: "1rem",
+            borderRadius: "14px",
+            fontSize: "0.9rem",
+            whiteSpace: "pre-wrap",
+          }}
+        >
           {errors.join("\n")}
         </div>
       )}
