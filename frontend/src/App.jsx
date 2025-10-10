@@ -52,11 +52,12 @@ function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://interpreter:5000/parse-json", {
+      const res = await fetch("/api/parse-json", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }),
       });
+
 
       const data = await res.json();
       setOutput(data.output || []);
