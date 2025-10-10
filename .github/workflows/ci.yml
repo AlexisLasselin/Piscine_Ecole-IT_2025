@@ -29,10 +29,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
+          # Installe pytest explicitement au cas où
+          pip install pytest
 
       - name: Run pytest and save summary
         run: |
           echo "## 🧪 Pytest Results (Python ${{ matrix.python-version }})" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          pytest -v >> $GITHUB_STEP_SUMMARY 2>&1
+          # Lance pytest depuis la racine pour que pytest.ini soit détecté
+          pytest >> $GITHUB_STEP_SUMMARY 2>&1
           echo '```' >> $GITHUB_STEP_SUMMARY
