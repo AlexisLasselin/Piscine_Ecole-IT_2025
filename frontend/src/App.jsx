@@ -7,11 +7,11 @@ function TerminalOutput({ lines }) {
     <div className="terminal">
       <div className="terminal-scroll">
         {lines.length === 0 ? (
-          <div style={{ color: "#888" }}>Aucune sortie pour l’instant...</div>
+          <div className="terminal-empty">Aucune sortie pour l’instant...</div>
         ) : (
           lines.map((line, index) => (
             <div key={index}>
-              <span style={{ color: "#22c55e" }}>{"> "}</span>
+              <span className="terminal-prefix">{"> "}</span>
               {line}
             </div>
           ))
@@ -26,6 +26,7 @@ function App() {
   // 👉 Code pré-rempli ou code sauvegardé
   const savedCode = localStorage.getItem("editorCode") || `print("Hello World")`;
   const [code, setCode] = useState(savedCode);
+
   const [output, setOutput] = useState([]);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -51,16 +52,13 @@ function App() {
       alert("Aucun code à exporter");
       return;
     }
-
     const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
-
     const link = document.createElement("a");
     link.href = url;
-    link.download = fileName || "code.pisc"; // si pas de nom, on met "code.pisc"
+    link.download = fileName || "code.pisc";
     document.body.appendChild(link);
     link.click();
-
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
@@ -99,50 +97,24 @@ function App() {
     }
   };
 
-  // 👉 Auto-exécution au lancement (Hello World ou code sauvegardé)
+  // 👉 Auto-exécution au lancement
   useEffect(() => {
     handleExecute();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        width: "100%",
-        maxWidth: "1000px",
-        margin: "0 auto",
-        padding: "1rem",
-        boxSizing: "border-box",
-        gap: "1rem",
-        backgroundColor: "#0f0f0f",
-        color: "white",
-      }}
-    >
-      {/* 📂 Import fichier + Bouton Export + Grammaire + Exécuter */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "1rem",
-        }}
-      >
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+    <div className="app-container">
+      {/* Toolbar */}
+      <div className="toolbar">
+        <div className="toolbar-left">
           <input
             type="file"
             accept=".pisc"
             onChange={handleFileImport}
             className="file-button"
           />
-
-          <button onClick={handleExport} className="export-button">
-            💾 Exporter
-          </button>
-
+          <button onClick={handleExport} className="export-button">💾 Exporter</button>
           <a
             href="https://github.com/AlexisLasselin/Piscine_Ecole-IT_2025/blob/main/docs/grammar.md"
             target="_blank"
@@ -153,7 +125,7 @@ function App() {
           </a>
         </div>
 
-        <div style={{ position: "relative" }}>
+        <div className="toolbar-right">
           <div className="star-container">
             {stars.map((s) => (
               <div
@@ -169,7 +141,6 @@ function App() {
               </div>
             ))}
           </div>
-
           <button
             onClick={handleExecute}
             disabled={loading}
@@ -181,53 +152,28 @@ function App() {
       </div>
 
       {fileName && (
-        <div style={{ color: "#aaa", fontSize: "0.9rem" }}>
+        <div className="file-name">
           📄 Fichier sélectionné : <strong>{fileName}</strong>
         </div>
       )}
 
-      {/* ✍️ Éditeur CodeMirror */}
-      <div
-        style={{
-          flexGrow: 1,
-          borderRadius: "14px",
-          border: "1px solid #6366f1",
-          overflow: "hidden",
-          boxShadow: "0 0 10px #6366f1",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            overflowY: "auto",
-            backgroundColor: "#0f0f0f",
-          }}
-        >
-          <CodeMirror
-            value={code}
-            height="100%"
-            theme={oneDark}
-            onChange={(value) => handleCodeChange(value)}
-            className="w-full"
-          />
-        </div>
+      {/* Code editor */}
+      <div className="editor-container">
+        <CodeMirror
+          value={code}
+          height="100%"
+          theme={oneDark}
+          onChange={(value) => handleCodeChange(value)}
+          className="code-editor"
+        />
       </div>
 
-      {/* 🖥️ Terminal */}
+      {/* Terminal */}
       <TerminalOutput lines={output} />
 
-      {/* ❌ Erreurs */}
+      {/* Errors */}
       {errors.length > 0 && (
-        <div
-          style={{
-            backgroundColor: "#fee2e2",
-            color: "#b91c1c",
-            padding: "1rem",
-            borderRadius: "14px",
-            fontSize: "0.9rem",
-            whiteSpace: "pre-wrap",
-          }}
-        >
+        <div className="error-box">
           {errors.join("\n")}
         </div>
       )}
